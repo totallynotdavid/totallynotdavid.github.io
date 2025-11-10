@@ -1,10 +1,9 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
-import { astroFont } from 'astro-font/integration';
 
 export default defineConfig({
-  integrations: [mdx(), astroFont()],
+  integrations: [mdx()],
   site: 'https://totallynotdavid.github.io/',
   trailingSlash: 'never',
 
