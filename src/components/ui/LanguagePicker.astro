@@ -1,27 +1,33 @@
 ---
-import { i18nConfig } from '@/i18n/config';
-import { getLangFromUrl, getLanguageHref } from '@/i18n/utils';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { languages } from '@/i18n/config';
 
 interface Props {
   class?: string;
 }
+
 const { class: extra = '' } = Astro.props as Props;
 
-const currentLang = getLangFromUrl(Astro.url);
-const currentPath = Astro.url.pathname;
-const segments = currentPath.split('/').filter(Boolean);
-const currentRoute = segments.length > 1 ? segments[1] : '';
+const currentLang = Astro.currentLocale || 'en';
 
-const languageOptions = await Promise.all(
-  Object.entries(i18nConfig.languages).map(async ([langCode, langConfig]) => {
-    const href = await getLanguageHref(langCode, currentPath, currentRoute);
+const currentPath = Astro.url.pathname
+  .replace(/^\/(en|es)/, '')
+  .replace(/^\//, '')
+  .replace(/\/$/, '');
+
+const languageOptions = Object.entries(languages).map(
+  ([langCode, langConfig]) => {
+    const href = currentPath
+      ? getRelativeLocaleUrl(langCode, currentPath)
+      : `/${langCode}`;
+
     return {
       code: langCode,
       label: langConfig.name,
       href,
       isActive: langCode === currentLang,
     };
-  }),
+  },
 );
 ---
 

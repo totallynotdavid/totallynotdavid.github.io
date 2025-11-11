@@ -1,27 +1,21 @@
 ---
-import { i18nConfig } from '@/i18n/config';
-import { getLanguageHref } from '@/i18n/utils';
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
+import { languages } from '@/i18n/config';
 
-const currentPath = Astro.url.pathname;
-const segments = currentPath.split('/').filter(Boolean);
-const currentRoute = segments.length > 1 ? segments[1] : '';
+// Get the current path without locale prefix
+const currentPath = Astro.url.pathname
+  .replace(/^\/(en|es)\//, '/')
+  .replace(/^\//, '');
 
-const languageCodes = Object.keys(i18nConfig.languages);
-const { defaultLang } = i18nConfig;
+const hreflangLinks = Object.keys(languages).map((langCode) => {
+  const href = getAbsoluteLocaleUrl(langCode, currentPath);
+  return {
+    lang: langCode,
+    href,
+  };
+});
 
-const hreflangLinks = await Promise.all(
-  languageCodes.map(async (langCode) => {
-    const href = await getLanguageHref(langCode, currentPath, currentRoute);
-    return {
-      lang: langCode,
-      href: new URL(href, Astro.site).toString(),
-    };
-  }),
-);
-
-const defaultLangHref = hreflangLinks.find(
-  (link) => link.lang === defaultLang,
-)?.href;
+const defaultLangHref = getAbsoluteLocaleUrl('en', currentPath);
 ---
 
 {
@@ -30,4 +24,4 @@ const defaultLangHref = hreflangLinks.find(
   ))
 }
 
-{defaultLangHref && <link rel='alternate' hreflang='x-default' href={defaultLangHref} />}
+<link rel='alternate' hreflang='x-default' href={defaultLangHref} />

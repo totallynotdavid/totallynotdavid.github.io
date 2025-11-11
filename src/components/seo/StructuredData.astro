@@ -1,7 +1,6 @@
 ---
 import { createImageObject, getCanonicalUrl } from '@/components/seo/utils';
 import { SITE_CONFIG } from '@/config/site';
-import { getLangFromUrl } from '@/i18n/utils';
 
 interface Props {
   type?: 'BlogPosting' | 'WebPage';
@@ -13,11 +12,13 @@ interface Props {
   keywords?: string[];
 }
 
+const currentLang = Astro.currentLocale || 'en';
+
 const {
   type = 'WebPage',
   title = SITE_CONFIG.title,
   description = SITE_CONFIG.description[
-    getLangFromUrl(Astro.url) as keyof typeof SITE_CONFIG.description
+    currentLang as keyof typeof SITE_CONFIG.description
   ],
   pubDate,
   updatedDate,
@@ -31,7 +32,6 @@ const siteUrl = getCanonicalUrl('/', Astro.site);
 const personId = `${siteUrl}#person`;
 const websiteId = `${siteUrl}#website`;
 const organizationId = `${siteUrl}#organization`;
-const currentLang = getLangFromUrl(Astro.url);
 
 const personSchema = {
   '@type': 'Person',
