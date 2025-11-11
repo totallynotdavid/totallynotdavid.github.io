@@ -6,7 +6,6 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   integrations: [mdx()],
   site: 'https://totallynotdavid.github.io/',
-  trailingSlash: 'never',
 
   i18n: {
     defaultLocale: 'en',
