@@ -3,11 +3,11 @@ import Separator from '@/components/ui/Separator.astro';
 
 interface Props {
   id?: string;
-  [key: string]: any;
+  class?: string;
 }
-const { id, ...rest } = Astro.props as Props;
+const { id, class: className = '' } = Astro.props as Props;
 ---
 
 <Separator>
-  <h1 id={id} {...rest}><slot /></h1>
+  <h1 id={id} class={className}><slot /></h1>
 </Separator>

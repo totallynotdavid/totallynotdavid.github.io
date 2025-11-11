@@ -1,11 +1,11 @@
 ---
 interface Props {
   id?: string;
-  [key: string]: any;
+  class?: string;
 }
-const { id, ...rest } = Astro.props as Props;
+const { id, class: className = '' } = Astro.props as Props;
 ---
 
 <div class='relative flex'>
-  <h2 id={id} {...rest}><slot /></h2>
+  <h2 id={id} class={className}><slot /></h2>
 </div>
