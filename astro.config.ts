@@ -1,6 +1,6 @@
-import { defineConfig } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
+import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'astro/config';
 
 export default defineConfig({
   integrations: [mdx()],
@@ -12,8 +12,8 @@ export default defineConfig({
     locales: ['en', 'es'],
     routing: {
       prefixDefaultLocale: true,
-      redirectToDefaultLocale: true
-    }
+      redirectToDefaultLocale: true,
+    },
   },
 
   markdown: {
@@ -21,14 +21,14 @@ export default defineConfig({
       footnoteLabel: 'Footnotes', // if empty, it will still render a heading, kept to translate it later
       footnoteLabelTagName: 'h3', // added to avoid adding footnotes on the toc component (only counts h1 and h2)
       footnoteLabelProperties: { class: 'sr-only' },
-      footnoteBackContent: '↩'
-    }
+      footnoteBackContent: '↩',
+    },
   },
 
   build: {
     assets: '_assets',
     inlineStylesheets: 'auto',
-    format: 'file'
+    format: 'file',
   },
 
   compressHTML: true,
@@ -46,15 +46,19 @@ export default defineConfig({
             vendor: ['astro'],
             components: [
               './src/components/blog/PostList.astro',
-              './src/components/blog/TableOfContents.astro'
-            ]
+              './src/components/blog/TableOfContents.astro',
+            ],
           },
-          assetFileNames: assetInfo => {
+          assetFileNames: (assetInfo) => {
             const name =
-              assetInfo.originalFileNames?.[0] || assetInfo.names?.[0] || 'unknown';
+              assetInfo.originalFileNames?.[0] ||
+              assetInfo.names?.[0] ||
+              'unknown';
             const ext = name.split('.').pop()?.toLowerCase() || '';
 
-            if (['png', 'jpg', 'jpeg', 'svg', 'gif', 'webp', 'avif'].includes(ext)) {
+            if (
+              ['png', 'jpg', 'jpeg', 'svg', 'gif', 'webp', 'avif'].includes(ext)
+            ) {
               return 'assets/images/[name]-[hash:8][extname]';
             }
             if (['woff', 'woff2', 'ttf', 'otf'].includes(ext)) {
@@ -66,15 +70,15 @@ export default defineConfig({
             return 'assets/[name]-[hash:8][extname]';
           },
           chunkFileNames: 'assets/js/[name]-[hash].js',
-          entryFileNames: 'assets/js/[name]-[hash].js'
-        }
-      }
+          entryFileNames: 'assets/js/[name]-[hash].js',
+        },
+      },
     },
 
     ssr: {
       external: ['buffer', 'path', 'fs', 'os', 'crypto', 'async_hooks'].map(
-        i => `node:${i}`
-      )
-    }
-  }
+        (i) => `node:${i}`,
+      ),
+    },
+  },
 });
