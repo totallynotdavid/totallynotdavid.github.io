@@ -1,14 +1,14 @@
 ---
-title: 'Rebuilding this site with Astro'
+title: "Rebuilding this site with Astro"
 pubDate: 2025-08-13
-description: 'A technical look at how I rebuilt my personal website using Astro.'
-keywords: ['astro', 'tailwindcss', 'mdx', 'i18n']
-ogImage: '/assets/images/rebuilding-with-astro-og.jpg'
+description: "A technical look at how I rebuilt my personal website using Astro."
+keywords: ["astro", "tailwindcss", "mdx", "i18n"]
+ogImage: "/assets/images/rebuilding-with-astro-og.jpg"
 ---
 
-import Annotation from '@/components/mdx/Annotation.astro';
-import MediaEmbed from '@/components/mdx/MediaEmbed.astro';
-import Mark from '@/components/mdx/Mark.astro';
+import Annotation from "@/components/mdx/Annotation.astro";
+import MediaEmbed from "@/components/mdx/MediaEmbed.astro";
+import Mark from "@/components/mdx/Mark.astro";
 
 I just finished rebuilding this website from scratch using Astro. This was my first time
 working with Astro, and I wanted to keep dependencies minimal while creating something
@@ -51,13 +51,13 @@ configuration is simple:
 // astro.config.ts
 export default defineConfig({
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'es'],
+    defaultLocale: "en",
+    locales: ["en", "es"],
     routing: {
       prefixDefaultLocale: true,
-      redirectToDefaultLocale: true
-    }
-  }
+      redirectToDefaultLocale: true,
+    },
+  },
 });
 ```
 
@@ -84,7 +84,7 @@ export const mdxComponents = {
   a: Link,
   h1: H1,
   h2: H2,
-  hr: HrDots
+  hr: HrDots,
 };
 ```
 
@@ -104,7 +104,7 @@ commentary without interrupting text flow, similar to well-designed print magazi
 <Annotation>
   The component wraps text and provides comments in a separate slot. On desktop, it draws
   a hand-drawn SVG bracket connecting text to a side comment.
-  <Fragment slot='comment' set:text='Like this annotation you are reading now' />
+  <Fragment slot="comment" set:text="Like this annotation you are reading now" />
 </Annotation>
 
 The implementation calculates annotated text dimensions and dynamically generates SVG path

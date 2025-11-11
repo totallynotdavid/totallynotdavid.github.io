@@ -1,14 +1,14 @@
 ---
-title: 'Reconstruyendo este sitio con Astro'
+title: "Reconstruyendo este sitio con Astro"
 pubDate: 2025-08-13
-description: 'Una mirada técnica a cómo reconstruí mi sitio web personal usando Astro.'
-keywords: ['astro', 'tailwindcss', 'mdx', 'i18n']
-ogImage: '/assets/images/rebuilding-with-astro-og.jpg'
+description: "Una mirada técnica a cómo reconstruí mi sitio web personal usando Astro."
+keywords: ["astro", "tailwindcss", "mdx", "i18n"]
+ogImage: "/assets/images/rebuilding-with-astro-og.jpg"
 ---
 
-import Annotation from '@/components/mdx/Annotation.astro';
-import MediaEmbed from '@/components/mdx/MediaEmbed.astro';
-import Mark from '@/components/mdx/Mark.astro';
+import Annotation from "@/components/mdx/Annotation.astro";
+import MediaEmbed from "@/components/mdx/MediaEmbed.astro";
+import Mark from "@/components/mdx/Mark.astro";
 
 Acabo de terminar de reconstruir este sitio web desde cero usando Astro. Esta fue mi
 primera vez trabajando with Astro, y quería mantener las dependencias al mínimo mientras
@@ -54,13 +54,13 @@ búsqueda. La configuración es simple:
 // astro.config.ts
 export default defineConfig({
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'es'],
+    defaultLocale: "en",
+    locales: ["en", "es"],
     routing: {
       prefixDefaultLocale: true,
-      redirectToDefaultLocale: true
-    }
-  }
+      redirectToDefaultLocale: true,
+    },
+  },
 });
 ```
 
@@ -89,7 +89,7 @@ export const mdxComponents = {
   a: Link,
   h1: H1,
   h2: H2,
-  hr: HrDots
+  hr: HrDots,
 };
 ```
 
@@ -111,7 +111,7 @@ bien diseñadas.
   El componente envuelve texto y proporciona comentarios en un slot separado. En
   escritorio, dibuja un corchete SVG dibujado a mano que conecta el texto con un
   comentario lateral.
-  <Fragment slot='comment' set:text='Como esta anotación que estás leyendo ahora' />
+  <Fragment slot="comment" set:text="Como esta anotación que estás leyendo ahora" />
 </Annotation>
 
 La implementación calcula las dimensiones del texto anotado y genera dinámicamente datos
