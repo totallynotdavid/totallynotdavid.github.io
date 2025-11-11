@@ -1,4 +1,4 @@
-# [web] david's portfolio [![deploy](https://github.com/totallynotdavid/totallynotdavid.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/totallynotdavid/totallynotdavid.github.io/actions/workflows/deploy.yml)
+# [web]: david's portfolio [![deploy](https://github.com/totallynotdavid/totallynotdavid.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/totallynotdavid/totallynotdavid.github.io/actions/workflows/deploy.yml)
 
 This repo contains the source code for my personal website. The site is built with
 [Astro](https://astro.build/), [Tailwind CSS](https://tailwindcss.com/) and MDX. You can
