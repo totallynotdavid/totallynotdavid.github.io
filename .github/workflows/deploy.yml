@@ -1,16 +1,16 @@
-name: Deploy to GitHub Pages
+name: deploy
 
 on:
   push:
     branches:
-      - 'master'
+      - "master"
     paths:
-      - 'src/**'
-      - 'public/**'
-      - 'package.json'
-      - 'astro.config.ts'
-      - 'tailwind.config.ts'
-      - 'tsconfig.json'
+      - "src/**"
+      - "public/**"
+      - "package.json"
+      - "astro.config.ts"
+      - "tailwind.config.ts"
+      - "tsconfig.json"
   workflow_dispatch:
 
 permissions:
@@ -19,17 +19,15 @@ permissions:
   id-token: write
 
 concurrency:
-  group: 'pages'
+  group: "pages"
   cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout your repository using git
-        uses: actions/checkout@v4
-      - name: Install, build, and upload your site output
-        uses: withastro/action@v3
+      - uses: actions/checkout@v5
+      - uses: withastro/action@v5
 
   deploy:
     needs: build

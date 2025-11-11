@@ -3,9 +3,9 @@ name: Build on PR
 on:
   pull_request:
     branches:
-      - 'master'
+      - "master"
     paths:
-      - 'src/**'
+      - "src/**"
   workflow_dispatch:
 
 permissions:
@@ -20,11 +20,11 @@ jobs:
     name: Validate Astro project
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.2.19
+          bun-version: 1.3.2
 
       - run: bun install --frozen-lockfile
 
