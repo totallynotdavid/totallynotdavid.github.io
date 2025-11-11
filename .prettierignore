@@ -1,7 +1,0 @@
-.astro
-.cache
-dist
-node_modules
-public
-
-bun.lock
