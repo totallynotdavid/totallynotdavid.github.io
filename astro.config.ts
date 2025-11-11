@@ -2,6 +2,7 @@ import mdx from '@astrojs/mdx';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
 
+// https://docs.astro.build/en/reference/configuration-reference/
 export default defineConfig({
   integrations: [mdx()],
   site: 'https://totallynotdavid.github.io/',
@@ -12,7 +13,6 @@ export default defineConfig({
     locales: ['en', 'es'],
     routing: {
       prefixDefaultLocale: true,
-      redirectToDefaultLocale: true,
     },
   },
 
@@ -26,8 +26,7 @@ export default defineConfig({
   },
 
   build: {
-    format: 'file',
-    inlineStylesheets: 'auto',
+    inlineStylesheets: 'always',
   },
 
   prefetch: {
@@ -41,8 +40,5 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
-    build: {
-      minify: 'esbuild',
-    },
   },
 });
