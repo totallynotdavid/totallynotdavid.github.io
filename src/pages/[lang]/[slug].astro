@@ -1,14 +1,17 @@
 ---
+import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import mdxComponents from '@/components/mdx';
-import PostLayout from '@/layouts/PostLayout.astro';
-import type { CollectionEntry } from 'astro:content';
-import { parseLocalizedId } from '@/i18n/utils';
 import { i18nConfig } from '@/i18n/config';
+import { parseLocalizedId } from '@/i18n/utils';
+import PostLayout from '@/layouts/PostLayout.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
-  const paths: { params: { lang: string; slug: string }; props: { post: any } }[] = [];
+  const paths: {
+    params: { lang: string; slug: string };
+    props: { post: any };
+  }[] = [];
 
   for (const post of posts) {
     const { base, lang } = parseLocalizedId(post.id);
@@ -17,7 +20,7 @@ export async function getStaticPaths() {
     if (lang in i18nConfig.languages) {
       paths.push({
         params: { lang, slug: effectiveSlug },
-        props: { post }
+        props: { post },
       });
     }
   }

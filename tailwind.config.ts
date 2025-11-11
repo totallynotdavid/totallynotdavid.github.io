@@ -12,7 +12,7 @@ export default {
         'text-secondary': 'var(--color-text-secondary)',
         accent: 'var(--color-accent)',
         'link-color': 'var(--color-link)',
-        'border-color': 'var(--color-border)'
+        'border-color': 'var(--color-border)',
       },
       fontFamily: {
         sans: [
@@ -22,7 +22,7 @@ export default {
           'Segoe UI',
           'Roboto',
           'Helvetica Neue',
-          'sans-serif'
+          'sans-serif',
         ],
         cursive: ['Caveat', 'cursive'],
         mono: [
@@ -31,22 +31,25 @@ export default {
           'Inconsolata',
           'Roboto Mono',
           'Courier New',
-          'monospace'
-        ]
+          'monospace',
+        ],
       },
       fontSize: {
         xs: ['0.75rem', { lineHeight: '1.25rem', letterSpacing: '-.0025rem' }],
-        sm: ['0.875rem', { lineHeight: '1.25rem', letterSpacing: '-.00563rem' }],
-        base: ['0.875rem', { lineHeight: '1.6', letterSpacing: '-0.011em' }]
+        sm: [
+          '0.875rem',
+          { lineHeight: '1.25rem', letterSpacing: '-.00563rem' },
+        ],
+        base: ['0.875rem', { lineHeight: '1.6', letterSpacing: '-0.011em' }],
       },
       maxWidth: {
-        520: '32.5rem'
+        520: '32.5rem',
       },
       aspectRatio: {
         '16/10': '16 / 10',
         '4/3': '4 / 3',
         '21/9': '21 / 9',
-        '3/2': '3 / 2'
+        '3/2': '3 / 2',
       },
       typography: () => ({
         DEFAULT: {
@@ -71,7 +74,7 @@ export default {
             fontWeight: '460',
 
             li: {
-              color: 'var(--color-text-primary)'
+              color: 'var(--color-text-primary)',
             },
 
             p: {
@@ -79,7 +82,7 @@ export default {
               marginTop: '0',
               marginBottom: '0',
               paddingTop: '1rem',
-              fontWeight: '480'
+              fontWeight: '480',
             },
 
             'h1, h2, h3, h4, h5, h6': {
@@ -88,15 +91,15 @@ export default {
               lineHeight: '1.25rem',
               letterSpacing: '-.00563rem',
               fontSize: '0.875rem',
-              margin: '0'
+              margin: '0',
             },
 
             h1: {
-              fontWeight: '600'
+              fontWeight: '600',
             },
 
             h2: {
-              fontWeight: '560'
+              fontWeight: '560',
             },
 
             code: {
@@ -105,7 +108,7 @@ export default {
               backgroundColor: 'rgba(0,0,0,0.05)',
               padding: '0.25rem 0.375rem',
               borderRadius: '0.25rem',
-              border: '1px solid var(--color-border)'
+              border: '1px solid var(--color-border)',
             },
 
             'code::before': { content: '""' },
@@ -114,14 +117,15 @@ export default {
             time: {
               fontSize: '0.875rem',
               lineHeight: '1.25rem',
-              color: 'color-mix(in srgb, var(--color-text-secondary), transparent 40%)',
+              color:
+                'color-mix(in srgb, var(--color-text-secondary), transparent 40%)',
               fontWeight: '460',
-              letterSpacing: '-.00563rem'
-            }
-          }
-        }
-      })
-    }
+              letterSpacing: '-.00563rem',
+            },
+          },
+        },
+      }),
+    },
   },
-  plugins: [typography]
+  plugins: [typography],
 };

@@ -1,6 +1,6 @@
 ---
-import { SITE_CONFIG } from '@/config/site';
 import { createImageObject, getCanonicalUrl } from '@/components/seo/utils';
+import { SITE_CONFIG } from '@/config/site';
 import { getLangFromUrl } from '@/i18n/utils';
 
 interface Props {
@@ -22,7 +22,7 @@ const {
   pubDate,
   updatedDate,
   ogImage = SITE_CONFIG.ogImage,
-  keywords
+  keywords,
 } = Astro.props;
 
 const canonicalUrl = getCanonicalUrl(Astro.url.pathname, Astro.site);
@@ -41,7 +41,7 @@ const personSchema = {
   email: SITE_CONFIG.author.email,
   url: siteUrl,
   image: createImageObject(SITE_CONFIG.author.avatar, Astro.site?.toString()),
-  sameAs: Object.values(SITE_CONFIG.author.social)
+  sameAs: Object.values(SITE_CONFIG.author.social),
 };
 
 const organizationSchema = {
@@ -50,7 +50,7 @@ const organizationSchema = {
   name: SITE_CONFIG.title,
   url: siteUrl,
   founder: { '@id': personId },
-  logo: createImageObject(SITE_CONFIG.author.avatar, Astro.site?.toString())
+  logo: createImageObject(SITE_CONFIG.author.avatar, Astro.site?.toString()),
 };
 
 const websiteSchema = {
@@ -58,10 +58,12 @@ const websiteSchema = {
   '@id': websiteId,
   name: SITE_CONFIG.title,
   description:
-    SITE_CONFIG.description[currentLang as keyof typeof SITE_CONFIG.description],
+    SITE_CONFIG.description[
+      currentLang as keyof typeof SITE_CONFIG.description
+    ],
   url: siteUrl,
   inLanguage: currentLang,
-  publisher: { '@id': organizationId }
+  publisher: { '@id': organizationId },
 };
 
 const contentSchema =
@@ -74,24 +76,28 @@ const contentSchema =
         inLanguage: currentLang,
         mainEntityOfPage: {
           '@type': 'WebPage',
-          '@id': canonicalUrl
+          '@id': canonicalUrl,
         },
         author: { '@id': personId },
         publisher: { '@id': organizationId },
         image: createImageObject(ogImage, Astro.site?.toString()),
-        ...(keywords && keywords.length > 0 && { keywords: keywords.join(', ') }),
+        ...(keywords &&
+          keywords.length > 0 && { keywords: keywords.join(', ') }),
         ...(pubDate && {
           datePublished: pubDate.toISOString(),
-          dateModified: (updatedDate || pubDate).toISOString()
-        })
+          dateModified: (updatedDate || pubDate).toISOString(),
+        }),
       }
     : null;
 
 const structuredData = {
   '@context': 'https://schema.org',
-  '@graph': [websiteSchema, organizationSchema, personSchema, contentSchema].filter(
-    Boolean
-  )
+  '@graph': [
+    websiteSchema,
+    organizationSchema,
+    personSchema,
+    contentSchema,
+  ].filter(Boolean),
 };
 ---
 

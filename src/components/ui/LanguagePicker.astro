@@ -1,6 +1,6 @@
 ---
-import { getLangFromUrl, getLanguageHref } from '@/i18n/utils';
 import { i18nConfig } from '@/i18n/config';
+import { getLangFromUrl, getLanguageHref } from '@/i18n/utils';
 
 interface Props {
   class?: string;
@@ -19,9 +19,9 @@ const languageOptions = await Promise.all(
       code: langCode,
       label: langConfig.name,
       href,
-      isActive: langCode === currentLang
+      isActive: langCode === currentLang,
     };
-  })
+  }),
 );
 ---
 

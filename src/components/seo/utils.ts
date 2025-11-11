@@ -6,7 +6,7 @@ export function createImageObject(url: string, baseUrl?: string) {
     '@type': 'ImageObject' as const,
     url: fullUrl,
     width: 1200,
-    height: 630
+    height: 630,
   };
 }
 

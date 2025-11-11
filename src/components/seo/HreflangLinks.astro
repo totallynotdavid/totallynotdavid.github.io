@@ -1,6 +1,6 @@
 ---
-import { getLanguageHref } from '@/i18n/utils';
 import { i18nConfig } from '@/i18n/config';
+import { getLanguageHref } from '@/i18n/utils';
 
 const currentPath = Astro.url.pathname;
 const segments = currentPath.split('/').filter(Boolean);
@@ -10,16 +10,18 @@ const languageCodes = Object.keys(i18nConfig.languages);
 const { defaultLang } = i18nConfig;
 
 const hreflangLinks = await Promise.all(
-  languageCodes.map(async langCode => {
+  languageCodes.map(async (langCode) => {
     const href = await getLanguageHref(langCode, currentPath, currentRoute);
     return {
       lang: langCode,
-      href: new URL(href, Astro.site).toString()
+      href: new URL(href, Astro.site).toString(),
     };
-  })
+  }),
 );
 
-const defaultLangHref = hreflangLinks.find(link => link.lang === defaultLang)?.href;
+const defaultLangHref = hreflangLinks.find(
+  (link) => link.lang === defaultLang,
+)?.href;
 ---
 
 {

@@ -5,11 +5,11 @@ import '@fontsource/inter/500.css';
 import '@fontsource/inter/600.css';
 import '@fontsource/caveat/400.css';
 import { ClientRouter } from 'astro:transitions';
-import { getLangFromUrl, useTranslations } from '@/i18n/utils';
-import LanguagePicker from '@/components/ui/LanguagePicker.astro';
-import StructuredData from '@/components/seo/StructuredData.astro';
 import HreflangLinks from '@/components/seo/HreflangLinks.astro';
+import StructuredData from '@/components/seo/StructuredData.astro';
+import LanguagePicker from '@/components/ui/LanguagePicker.astro';
 import { SITE_CONFIG } from '@/config/site';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
 interface Props {
   title?: string;
@@ -31,7 +31,7 @@ const {
   type = 'WebPage',
   pubDate,
   updatedDate,
-  keywords
+  keywords,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);

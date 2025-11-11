@@ -1,6 +1,10 @@
 ---
 import type { MarkdownHeading } from 'astro';
-import { getLangFromUrl, useTranslations, useTranslatedPath } from '@/i18n/utils';
+import {
+  getLangFromUrl,
+  useTranslatedPath,
+  useTranslations,
+} from '@/i18n/utils';
 import '@/styles/toc.css';
 
 interface Props {
@@ -8,7 +12,7 @@ interface Props {
 }
 
 const { headings } = Astro.props;
-const tocHeadings = headings.filter(h => h.depth <= 2);
+const tocHeadings = headings.filter((h) => h.depth <= 2);
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);

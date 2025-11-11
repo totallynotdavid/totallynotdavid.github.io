@@ -53,14 +53,18 @@ const {
   formats = ['avif', 'webp'],
   width,
   height,
-  densities = [1, 2]
+  densities = [1, 2],
 } = Astro.props;
 
 // Check if src is an imported image object or a string
 const isImportedImage = typeof src === 'object' && src !== null && 'src' in src;
-const srcString = isImportedImage ? (src as ImageMetadata).src : (src as string);
+const srcString = isImportedImage
+  ? (src as ImageMetadata).src
+  : (src as string);
 
-const getMediaType = (src: string | ImageMetadata): 'video' | 'image' | 'iframe' => {
+const getMediaType = (
+  src: string | ImageMetadata,
+): 'video' | 'image' | 'iframe' => {
   if (type) return type;
 
   if (isImportedImage) return 'image';
@@ -100,7 +104,7 @@ const aspectRatioClasses: Record<string, string> = {
   '21/9': 'aspect-21/9',
   '3/2': 'aspect-3/2',
   '1/1': 'aspect-square',
-  video: 'aspect-video'
+  video: 'aspect-video',
 };
 
 const aspectRatioClass = aspectRatioClasses[aspectRatio] || '';
@@ -114,14 +118,14 @@ const imageProps = {
   height: height || (isImportedImage ? undefined : 675),
   quality,
   loading: loadingStrategy,
-  class: 'h-full w-full object-cover'
+  class: 'h-full w-full object-cover',
 } as const;
 
 const pictureProps = {
   ...imageProps,
   formats,
   densities,
-  sizes: sizes || '(max-width: 768px) 100vw, 800px'
+  sizes: sizes || '(max-width: 768px) 100vw, 800px',
 } as const;
 ---
 

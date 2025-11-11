@@ -2,7 +2,7 @@ export const SITE_CONFIG = {
   title: 'David Duran',
   description: {
     en: 'Physicist + Developer + Designer',
-    es: 'Físico + Desarrollador + Diseñador'
+    es: 'Físico + Desarrollador + Diseñador',
   },
   url: 'https://totallynotdavid.github.io',
 
@@ -14,9 +14,9 @@ export const SITE_CONFIG = {
     social: {
       twitter: 'https://x.com/totallynotdavid',
       github: 'https://github.com/totallynotdavid',
-      linkedin: 'https://linkedin.com/in/amosduran'
-    }
+      linkedin: 'https://linkedin.com/in/amosduran',
+    },
   },
 
-  ogImage: '/opengraph-image.jpeg'
+  ogImage: '/opengraph-image.jpeg',
 } as const;

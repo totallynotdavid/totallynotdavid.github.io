@@ -6,7 +6,11 @@
 }
 
 .footnotes .styled-link {
-  color: color-mix(in srgb, var(--_fn-text-secondary), var(--_fn-text-primary) 35%);
+  color: color-mix(
+    in srgb,
+    var(--_fn-text-secondary),
+    var(--_fn-text-primary) 35%
+  );
 }
 
 .footnotes .styled-link:hover {
@@ -23,7 +27,7 @@
 }
 
 .footnotes:before {
-  content: '';
+  content: "";
   display: block;
   width: 3.125rem;
   height: 1px;

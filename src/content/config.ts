@@ -17,10 +17,10 @@ const postsCollection = defineCollection({
     ogImageAlt: z.string().optional(),
     slugOverride: z.string().optional(),
     lang: z.string().default(i18nConfig.defaultLang),
-    baseSlug: z.string().default('')
-  })
+    baseSlug: z.string().default(''),
+  }),
 });
 
 export const collections = {
-  posts: postsCollection
+  posts: postsCollection,
 };

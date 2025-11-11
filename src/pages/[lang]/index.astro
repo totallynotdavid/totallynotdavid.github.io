@@ -1,16 +1,16 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import mdxComponents from '@/components/mdx';
-import PostList from '@/components/blog/PostList.astro';
 import PostHeader from '@/components/blog/PostHeader.astro';
-import { useTranslations } from '@/i18n/utils';
+import PostList from '@/components/blog/PostList.astro';
+import mdxComponents from '@/components/mdx';
 import { i18nConfig } from '@/i18n/config';
+import { useTranslations } from '@/i18n/utils';
+import Layout from '@/layouts/Layout.astro';
 
 export async function getStaticPaths() {
   const languages = Object.keys(i18nConfig.languages);
-  return languages.map(lang => ({
+  return languages.map((lang) => ({
     params: { lang },
-    props: { lang }
+    props: { lang },
   }));
 }
 

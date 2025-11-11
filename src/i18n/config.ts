@@ -1,5 +1,5 @@
-import { DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES } from './settings';
 import { SITE_CONFIG } from '@/config/site';
+import { DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES } from './settings';
 
 export interface LanguageConfig {
   code: string;
@@ -18,16 +18,16 @@ export interface I18nConfig {
 export const i18nConfig: I18nConfig = {
   languages: {
     en: { code: 'en', name: 'English', locale: 'en-US' },
-    es: { code: 'es', name: 'Español', locale: 'es-ES' }
+    es: { code: 'es', name: 'Español', locale: 'es-ES' },
   },
   defaultLang: DEFAULT_LANGUAGE,
   showDefaultLang: true,
   routes: {
     es: {
       posts: 'articulos',
-      about: 'acerca-de'
-    }
-  }
+      about: 'acerca-de',
+    },
+  },
 };
 
 export const ui = {
@@ -41,7 +41,7 @@ export const ui = {
     'toc.index': 'Index',
     'toc.nav_label': 'Table of contents',
     'toc.return_home': 'Return to home page',
-    'toc.jump_to_section': 'Jump to section:'
+    'toc.jump_to_section': 'Jump to section:',
   },
   es: {
     'nav.home': 'Inicio',
@@ -53,13 +53,15 @@ export const ui = {
     'toc.index': 'Índice',
     'toc.nav_label': 'Tabla de contenidos',
     'toc.return_home': 'Volver al inicio',
-    'toc.jump_to_section': 'Ir a la sección:'
-  }
+    'toc.jump_to_section': 'Ir a la sección:',
+  },
 } as const;
 
 function validateI18nConfig(config: I18nConfig): void {
   if (!config.languages[config.defaultLang]) {
-    throw new Error(`Default language ${config.defaultLang} not found in languages`);
+    throw new Error(
+      `Default language ${config.defaultLang} not found in languages`,
+    );
   }
 
   for (const lang of Object.keys(config.routes)) {
@@ -72,7 +74,7 @@ function validateI18nConfig(config: I18nConfig): void {
   for (const l of SUPPORTED_LANGUAGES) {
     if (!langKeys.includes(l)) {
       throw new Error(
-        `SUPPORTED_LANGUAGES entry "${l}" missing from i18nConfig.languages`
+        `SUPPORTED_LANGUAGES entry "${l}" missing from i18nConfig.languages`,
       );
     }
   }

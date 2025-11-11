@@ -1,5 +1,5 @@
-import { i18nConfig, ui } from './config';
 import { getCollection } from 'astro:content';
+import { i18nConfig, ui } from './config';
 
 export function getLangFromUrl(url: URL): string {
   const segments = url.pathname.split('/').filter(Boolean);
@@ -21,7 +21,10 @@ export function useTranslations(lang: string) {
 }
 
 export function useTranslatedPath(lang: string) {
-  return function translatePath(path: string, targetLang: string = lang): string {
+  return function translatePath(
+    path: string,
+    targetLang: string = lang,
+  ): string {
     const cleanPath = path.replace(/^\/+|\/+$/g, '') || '';
     return buildUrl(cleanPath, targetLang);
   };
@@ -36,7 +39,8 @@ function translateRoute(baseRoute: string, targetLang: string): string {
 
 function buildUrl(baseRoute: string, lang: string): string {
   const translatedRoute = translateRoute(baseRoute, lang);
-  const needsLangPrefix = i18nConfig.showDefaultLang || lang !== i18nConfig.defaultLang;
+  const needsLangPrefix =
+    i18nConfig.showDefaultLang || lang !== i18nConfig.defaultLang;
 
   let path = needsLangPrefix ? `/${lang}` : '';
   if (translatedRoute && translatedRoute !== '/') {
@@ -85,13 +89,13 @@ async function getArticleTranslations() {
 export async function getLanguageHref(
   targetLang: string,
   currentUrl: string,
-  fallbackRoute: string = ''
+  fallbackRoute: string = '',
 ): Promise<string> {
   const translations = await getArticleTranslations();
 
   // find the base slug for current URL
   const currentBase = Object.entries(translations).find(([_, variants]) =>
-    Object.values(variants).includes(currentUrl.replace(/\/$/, '') || '/')
+    Object.values(variants).includes(currentUrl.replace(/\/$/, '') || '/'),
   )?.[0];
 
   // if we found a translation for this article, use it

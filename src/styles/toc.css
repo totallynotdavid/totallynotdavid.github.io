@@ -18,7 +18,7 @@ article h6 {
 
 article .target::after {
   animation: fadeInOut 5s ease both;
-  content: '';
+  content: "";
   position: absolute;
   inset: 0.5rem -1rem -0.5rem;
   mix-blend-mode: multiply;

@@ -1,7 +1,11 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
-import { getLangFromUrl, useTranslations, parseLocalizedId } from '@/i18n/utils';
+import { type CollectionEntry, getCollection } from 'astro:content';
 import { i18nConfig } from '@/i18n/config';
+import {
+  getLangFromUrl,
+  parseLocalizedId,
+  useTranslations,
+} from '@/i18n/utils';
 
 type Post = CollectionEntry<'posts'>;
 
@@ -19,7 +23,7 @@ for (const p of await getCollection('posts')) {
 
   const post = {
     ...p,
-    data: { ...p.data, lang: derivedLang, baseSlug: base }
+    data: { ...p.data, lang: derivedLang, baseSlug: base },
   } as Post;
 
   const year = post.data.pubDate.getFullYear();
@@ -30,7 +34,7 @@ const yearEntries = Object.entries(postsByYear)
   .sort(([a], [b]) => Number(b) - Number(a))
   .map(([year, posts]) => [
     year,
-    posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+    posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
   ]) as [string, Post[]][];
 
 function getPostUrl(post: Post): string {
