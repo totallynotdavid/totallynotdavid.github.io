@@ -24,7 +24,8 @@ for (const p of await getCollection('posts')) {
   if (isProd && p.data.draft) continue;
 
   const year = p.data.pubDate.getFullYear();
-  (postsByYear[year] ??= []).push(p);
+  if (!postsByYear[year]) postsByYear[year] = [];
+  postsByYear[year].push(p);
 }
 
 const yearEntries = Object.entries(postsByYear)
