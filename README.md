@@ -1,4 +1,4 @@
-# David's portfolio [![deploy](https://github.com/totallynotdavid/totallynotdavid.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/totallynotdavid/totallynotdavid.github.io/actions/workflows/deploy.yml)
+# [web] david's portfolio [![deploy](https://github.com/totallynotdavid/totallynotdavid.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/totallynotdavid/totallynotdavid.github.io/actions/workflows/deploy.yml)
 
 This repo contains the source code for my personal website. The site is built with
 [Astro](https://astro.build/), [Tailwind CSS](https://tailwindcss.com/) and MDX. You can
@@ -40,13 +40,13 @@ desktop, annotations appear alongside the text with animated SVG brackets. On mo
 adapt to display underneath the annotated content.
 
 ```mdx
-import Annotation from '@/components/mdx/Annotation.astro';
+import Annotation from "@/components/mdx/Annotation.astro";
 
 <Annotation>
   This is the main text that readers will see inline.
   <Fragment
-    slot='comment'
-    set:text='This annotation provides additional context or commentary'
+    slot="comment"
+    set:text="This annotation provides additional context or commentary"
   />
 </Annotation>
 ```
@@ -69,13 +69,13 @@ For images (especially local assets), import the file directly:
 import myImage from '@/assets/example-image.jpg';
 ---
 
-import MediaEmbed from '@/components/mdx/MediaEmbed.astro';
+import MediaEmbed from "@/components/mdx/MediaEmbed.astro";
 
 <MediaEmbed
   src={myImage}
-  alt='Descriptive alt text for accessibility'
-  caption='Optional caption that appears below the media'
-  aspectRatio='16/9'
+  alt="Descriptive alt text for accessibility"
+  caption="Optional caption that appears below the media"
+  aspectRatio="16/9"
 />
 ```
 
@@ -83,8 +83,8 @@ For video content:
 
 ```mdx
 <MediaEmbed
-  src='/videos/example-video.mp4'
-  caption='Video demonstrating a concept'
+  src="/videos/example-video.mp4"
+  caption="Video demonstrating a concept"
   controls
   loop
 />
@@ -102,12 +102,12 @@ Create visually distinct blocks that draw attention to important links or extern
 resources. Perfect for highlighting references, related content, or calls to action.
 
 ```mdx
-import Callout from '@/components/mdx/Callout.astro';
+import Callout from "@/components/mdx/Callout.astro";
 
-<Callout href='https://example.com'>
+<Callout href="https://example.com">
   <p>
     Explore this related resource.
-    <span class='pl-1 text-gray-500'>Visit example.com</span>
+    <span class="pl-1 text-gray-500">Visit example.com</span>
   </p>
 </Callout>
 ```
@@ -121,7 +121,7 @@ Apply subtle highlighter effects to text using CSS gradients for a more natural 
 than solid backgrounds.
 
 ```mdx
-import Mark from '@/components/mdx/Mark.astro';
+import Mark from "@/components/mdx/Mark.astro";
 
 This is regular text with <Mark>highlighted content</Mark> for emphasis.
 ```
