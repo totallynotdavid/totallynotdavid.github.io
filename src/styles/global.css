@@ -132,7 +132,7 @@ article > p + div:has(h2) {
 This is added to avoid padding on the first text after a figure element
 Cause: MediaEmbed
 */
-article > figure + script + p,
-article > figure + p {
+article > figure + p,
+article > figure + script + p {
   padding-top: 0;
 }
