@@ -1,6 +1,6 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
-@config '../../tailwind.config.ts';
+@config "../../tailwind.config.ts";
 
 @layer base {
   *,
@@ -60,17 +60,12 @@
 
   html {
     font-family:
-      'Inter',
-      -apple-system,
-      BlinkMacSystemFont,
-      'Segoe UI',
-      Roboto,
-      'Helvetica Neue',
-      sans-serif;
+      "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      "Helvetica Neue", sans-serif;
     background-color: var(--color-background);
     color: var(--color-text-primary);
-    font-feature-settings: 'cv11', 'ss01';
-    font-variation-settings: 'slnt' 0;
+    font-feature-settings: "cv11", "ss01";
+    font-variation-settings: "slnt" 0;
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-normal);
     letter-spacing: var(--letter-spacing-normal);
@@ -121,7 +116,7 @@
 
 @utility post-date {
   font-family:
-    'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace;
+    "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Courier New", monospace;
   font-size: var(--font-size-small);
   font-weight: 400;
   color: var(--color-text-secondary);
