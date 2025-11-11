@@ -1,5 +1,4 @@
 import { defineCollection, z } from 'astro:content';
-import { i18nConfig } from '@/i18n/config';
 
 const postsCollection = defineCollection({
   type: 'content',
@@ -15,9 +14,6 @@ const postsCollection = defineCollection({
     ogImageHeight: z.string().optional(),
     ogImageType: z.string().optional(),
     ogImageAlt: z.string().optional(),
-    slugOverride: z.string().optional(),
-    lang: z.string().default(i18nConfig.defaultLang),
-    baseSlug: z.string().default(''),
   }),
 });
 

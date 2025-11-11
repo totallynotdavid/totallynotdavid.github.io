@@ -9,7 +9,7 @@ import HreflangLinks from '@/components/seo/HreflangLinks.astro';
 import StructuredData from '@/components/seo/StructuredData.astro';
 import LanguagePicker from '@/components/ui/LanguagePicker.astro';
 import { SITE_CONFIG } from '@/config/site';
-import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import { useTranslations } from '@/i18n/utils';
 
 interface Props {
   title?: string;
@@ -21,7 +21,7 @@ interface Props {
   keywords?: string[];
 }
 
-const lang = getLangFromUrl(Astro.url);
+const lang = Astro.currentLocale || 'en';
 const t = useTranslations(lang);
 
 const {
