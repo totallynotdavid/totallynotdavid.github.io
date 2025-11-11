@@ -3,7 +3,6 @@
   "type": "module",
   "private": "true",
   "scripts": {
-    "clean": "shx rm -rf .astro .cache node_modules",
     "dev": "astro dev --host",
     "start": "astro dev",
     "build": "astro build",
@@ -20,8 +19,5 @@
     "@tailwindcss/vite": "^4.1.11",
     "astro": "5.15.5",
     "tailwindcss": "^4.1.11"
-  },
-  "devDependencies": {
-    "shx": "^0.4.0"
   }
 }
