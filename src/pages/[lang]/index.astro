@@ -2,20 +2,25 @@
 import PostHeader from '@/components/blog/PostHeader.astro';
 import PostList from '@/components/blog/PostList.astro';
 import mdxComponents from '@/components/mdx';
+import HomeContentEs from '@/content/home.es.mdx';
+import HomeContentEn from '@/content/home.mdx';
+import { DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES } from '@/i18n/config';
 import { useTranslations } from '@/i18n/utils';
 import Layout from '@/layouts/Layout.astro';
 
 export async function getStaticPaths() {
-  return [{ params: { lang: 'en' } }, { params: { lang: 'es' } }];
+  return SUPPORTED_LANGUAGES.map((lang) => ({ params: { lang } }));
 }
 
 const { lang } = Astro.params;
 const t = useTranslations(lang);
 
-const HomeContent =
-  lang === 'es'
-    ? (await import('@/content/home.es.mdx')).default
-    : (await import('@/content/home.mdx')).default;
+const homeContentMap = {
+  en: HomeContentEn,
+  es: HomeContentEs,
+};
+
+const HomeContent = homeContentMap[lang] || homeContentMap[DEFAULT_LANGUAGE];
 ---
 
 <Layout title={t('site.title')} description={t('site.description')} type='WebPage'>

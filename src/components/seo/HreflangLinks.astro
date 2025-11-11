@@ -1,10 +1,15 @@
 ---
 import { getAbsoluteLocaleUrl } from 'astro:i18n';
-import { languages } from '@/i18n/config';
+import {
+  createLanguagePattern,
+  DEFAULT_LANGUAGE,
+  languages,
+} from '@/i18n/config';
 
 // Get the current path without locale prefix
+const langPattern = createLanguagePattern();
 const currentPath = Astro.url.pathname
-  .replace(/^\/(en|es)\//, '/')
+  .replace(langPattern, '')
   .replace(/^\//, '');
 
 const hreflangLinks = Object.keys(languages).map((langCode) => {
@@ -15,7 +20,7 @@ const hreflangLinks = Object.keys(languages).map((langCode) => {
   };
 });
 
-const defaultLangHref = getAbsoluteLocaleUrl('en', currentPath);
+const defaultLangHref = getAbsoluteLocaleUrl(DEFAULT_LANGUAGE, currentPath);
 ---
 
 {

@@ -1,6 +1,10 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import { languages } from '@/i18n/config';
+import {
+  createLanguagePattern,
+  DEFAULT_LANGUAGE,
+  languages,
+} from '@/i18n/config';
 
 interface Props {
   class?: string;
@@ -8,18 +12,16 @@ interface Props {
 
 const { class: extra = '' } = Astro.props as Props;
 
-const currentLang = Astro.currentLocale || 'en';
+const currentLang = Astro.currentLocale || DEFAULT_LANGUAGE;
 
+const langPattern = createLanguagePattern();
 const currentPath = Astro.url.pathname
-  .replace(/^\/(en|es)/, '')
-  .replace(/^\//, '')
-  .replace(/\/$/, '');
+  .replace(langPattern, '')
+  .replace(/^\/|\/$/g, '');
 
 const languageOptions = Object.entries(languages).map(
   ([langCode, langConfig]) => {
-    const href = currentPath
-      ? getRelativeLocaleUrl(langCode, currentPath)
-      : `/${langCode}`;
+    const href = getRelativeLocaleUrl(langCode, currentPath || '/');
 
     return {
       code: langCode,

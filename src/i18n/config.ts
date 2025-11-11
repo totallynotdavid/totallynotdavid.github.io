@@ -1,5 +1,10 @@
 import { SITE_CONFIG } from '@/config/site';
 
+export const DEFAULT_LANGUAGE = 'en' as const;
+export const SUPPORTED_LANGUAGES = ['en', 'es'] as const;
+
+export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
+
 export interface LanguageConfig {
   code: string;
   name: string;
@@ -7,10 +12,16 @@ export interface LanguageConfig {
   rtl?: boolean;
 }
 
-export const languages: Record<string, LanguageConfig> = {
+export const languages: Record<SupportedLanguage, LanguageConfig> = {
   en: { code: 'en', name: 'English', locale: 'en-US' },
   es: { code: 'es', name: 'Español', locale: 'es-ES' },
 };
+
+export const defaultLanguage = languages[DEFAULT_LANGUAGE];
+
+export function createLanguagePattern(): RegExp {
+  return new RegExp(`^/(${SUPPORTED_LANGUAGES.join('|')})`);
+}
 
 export const ui = {
   en: {

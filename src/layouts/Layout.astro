@@ -9,7 +9,8 @@ import HreflangLinks from '@/components/seo/HreflangLinks.astro';
 import StructuredData from '@/components/seo/StructuredData.astro';
 import LanguagePicker from '@/components/ui/LanguagePicker.astro';
 import { SITE_CONFIG } from '@/config/site';
-import { useTranslations } from '@/i18n/utils';
+import { DEFAULT_LANGUAGE } from '@/i18n/config';
+import { getOgLocale, useTranslations } from '@/i18n/utils';
 
 interface Props {
   title?: string;
@@ -21,8 +22,9 @@ interface Props {
   keywords?: string[];
 }
 
-const lang = Astro.currentLocale || 'en';
+const lang = Astro.currentLocale || DEFAULT_LANGUAGE;
 const t = useTranslations(lang);
+const ogLocale = getOgLocale(lang);
 
 const {
   title = t('site.title'),
@@ -78,7 +80,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property='og:image:height' content='630' />
     <meta property='og:image:type' content='image/jpeg' />
     <meta property='og:type' content='website' />
-    <meta property='og:locale' content={lang === 'es' ? 'es_ES' : 'en_US'} />
+    <meta property='og:locale' content={ogLocale} />
 
     <meta name='twitter:card' content='summary_large_image' />
     <meta name='twitter:title' content={title} />

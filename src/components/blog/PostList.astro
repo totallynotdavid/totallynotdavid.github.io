@@ -1,13 +1,19 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content';
-import { languages } from '@/i18n/config';
+import {
+  DEFAULT_LANGUAGE,
+  defaultLanguage,
+  languages,
+  type SupportedLanguage,
+} from '@/i18n/config';
 import { useTranslations } from '@/i18n/utils';
 
 type Post = CollectionEntry<'posts'>;
 
-const lang = Astro.currentLocale || 'en';
+const lang = Astro.currentLocale || DEFAULT_LANGUAGE;
 const t = useTranslations(lang);
-const locale = languages[lang]?.locale || 'en-US';
+const locale =
+  languages[lang as SupportedLanguage]?.locale || defaultLanguage.locale;
 const isProd = import.meta.env.PROD;
 
 const postsByYear: Record<number, Post[]> = {};
