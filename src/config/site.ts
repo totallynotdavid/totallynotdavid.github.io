@@ -19,4 +19,7 @@ export const SITE_CONFIG = {
   },
 
   ogImage: '/opengraph-image.jpeg',
+  analytics: {
+    umamiWebsiteId: 'f5b7f149-6026-4028-b5f4-07776424723e',
+  },
 } as const;

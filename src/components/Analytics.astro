@@ -1,0 +1,211 @@
+---
+interface Props {
+  websiteId: string;
+}
+
+const { websiteId } = Astro.props;
+---
+
+<script is:inline defer data-website-id={websiteId}>
+(function () {
+  'use strict';
+
+  const {
+    screen: { width, height },
+    navigator: { language },
+    location,
+    document,
+    history,
+  } = window;
+
+  const { hostname, href } = location;
+  const { currentScript, referrer } = document;
+
+  if (!currentScript) return;
+
+  const _localStorage = href.startsWith('data:')
+    ? undefined
+    : window.localStorage;
+  const attr = currentScript.getAttribute.bind(currentScript);
+  const websiteId = attr('data-website-id');
+  const hostUrl = attr('data-host-url');
+  const tag = attr('data-tag');
+  const autoTrack = attr('data-auto-track') !== 'false';
+  const excludeSearch = attr('data-exclude-search') === 'true';
+  const excludeHash = attr('data-exclude-hash') === 'true';
+  const domains = attr('data-domains') || '';
+  const domainsList = domains.split(',').map((n) => n.trim());
+
+  const endpoint = `${(hostUrl || 'https://api-gateway.umami.dev').replace(/\/$/, '')}/api/send`;
+  const screen = `${width}x${height}`;
+  const eventRegex = /data-umami-event-([\w-_]+)/;
+  const eventNameAttribute = 'data-umami-event';
+  const delayDuration = 300;
+
+  let cacheToken;
+  let currentUrl = parseUrl(href);
+  let currentReferrer = parseUrl(referrer !== hostname ? referrer : '');
+  let isTracking = false;
+  let isDisabled = false;
+
+  function parseUrl(url) {
+    try {
+      const parsed = new URL(url, location.href);
+      if (excludeSearch) parsed.search = '';
+      if (excludeHash) parsed.hash = '';
+      return parsed.toString();
+    } catch {
+      return url;
+    }
+  }
+
+  function getPayload() {
+    return {
+      website: websiteId,
+      hostname,
+      screen,
+      language,
+      title: document.title,
+      url: currentUrl,
+      referrer: currentReferrer,
+      tag: tag || undefined,
+    };
+  }
+
+  function isBlocked() {
+    return (
+      isDisabled ||
+      !websiteId ||
+      (_localStorage?.getItem('umami.disabled')) ||
+      (domains && !domainsList.includes(hostname))
+    );
+  }
+
+  async function send(payload, type = 'event') {
+    if (isBlocked()) return;
+
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    if (cacheToken) {
+      headers['x-umami-cache'] = cacheToken;
+    }
+
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        body: JSON.stringify({ type, payload }),
+        headers,
+        keepalive: true,
+      });
+      const data = await res.json();
+
+      if (data) {
+        isDisabled = !!data.disabled;
+        cacheToken = data.cache;
+      }
+    } catch (error) {
+      // Ignore errors
+    }
+  }
+
+  function track(obj, data) {
+    if (typeof obj === 'string') {
+      return send({ ...getPayload(), name: obj, data }, 'event');
+    }
+    if (typeof obj === 'object') {
+      return send(obj, 'event');
+    }
+    if (typeof obj === 'function') {
+      return send(obj(getPayload()), 'event');
+    }
+    return send(getPayload(), 'event');
+  }
+
+  function identify(data) {
+    send({ ...getPayload(), data }, 'identify');
+  }
+
+  function handleHistoryChange(originalFn, _type) {
+    return (...args) => {
+      originalFn.apply(history, args);
+      const url = args[2];
+      if (url) {
+        currentReferrer = currentUrl;
+        currentUrl = parseUrl(new URL(url, location.href).toString());
+        if (currentUrl !== currentReferrer) {
+          setTimeout(track, delayDuration);
+        }
+      }
+    };
+  }
+
+  function handleClick(e) {
+    const target = e.target;
+    const anchor = target.closest('a,button');
+
+    if (!anchor) return;
+
+    const { href, target: targetAttr } = anchor;
+    const eventName = anchor.getAttribute(eventNameAttribute);
+
+    if (eventName) {
+      const eventData = {};
+      anchor.getAttributeNames().forEach((name) => {
+        const match = name.match(eventRegex);
+        if (match) {
+          eventData[match[1]] = anchor.getAttribute(name);
+        }
+      });
+
+      track(eventName, eventData);
+
+      // Handle navigation delay if it's a link
+      if (anchor.tagName === 'A' && href) {
+        const isExternal =
+          targetAttr === '_blank' ||
+          e.ctrlKey ||
+          e.shiftKey ||
+          e.metaKey ||
+          (e.button && e.button === 1);
+
+        if (!isExternal) {
+          e.preventDefault();
+          setTimeout(() => {
+            const win = targetAttr === '_top' ? window.top : window;
+            win.location.href = href;
+          }, delayDuration);
+        }
+      }
+    }
+  }
+
+  function init() {
+    if (isTracking) return;
+    isTracking = true;
+
+    track();
+
+    history.pushState = handleHistoryChange(history.pushState);
+    history.replaceState = handleHistoryChange(history.replaceState);
+
+    document.addEventListener('click', handleClick, true);
+  }
+
+  // Expose umami object
+  if (!window.umami) {
+    window.umami = {
+      track,
+      identify,
+    };
+  }
+
+  if (autoTrack && !isBlocked()) {
+    if (document.readyState === 'complete') {
+      init();
+    } else {
+      document.addEventListener('readystatechange', init, true);
+    }
+  }
+})();
+</script>
