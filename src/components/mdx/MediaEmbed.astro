@@ -152,7 +152,7 @@ const pictureProps = {
       showPlaceholder && (
         <div class='loading-placeholder absolute inset-0 flex flex-col items-center justify-center'>
           <div class='skeleton-loader mb-2' />
-          <div class='text-xs text-gray-400 dark:text-gray-600'>Loading...</div>
+          <div class='text-xs text-gray-400 dark:text-gray-600'>Loading…</div>
         </div>
       )
     }
@@ -161,8 +161,12 @@ const pictureProps = {
       class='error-placeholder absolute inset-0 hidden flex-col items-center justify-center'
     >
       <div class='mb-2 text-sm text-red-500'>⚠️ Failed to load media</div>
-      <button class='retry-btn text-xs text-blue-500 underline hover:text-blue-600'>
-        Retry
+      <button
+        class='retry-btn touch-target relative text-xs text-blue-500 underline hover:text-blue-600 disabled:cursor-not-allowed disabled:opacity-50'
+        aria-label='Retry loading media'
+      >
+        <span class='retry-text'>Retry</span>
+        <span class='retry-spinner hidden'>Loading…</span>
       </button>
     </div>
 
@@ -581,12 +585,28 @@ const pictureProps = {
     onMediaError(container: HTMLElement) {
       container.setAttribute('data-error', 'true');
 
-      const retryBtn = container.querySelector('.retry-btn');
+      const retryBtn = container.querySelector('.retry-btn') as HTMLButtonElement;
       if (retryBtn && !retryBtn.hasAttribute('data-listener-added')) {
         retryBtn.setAttribute('data-listener-added', 'true');
         retryBtn.addEventListener('click', () => {
+          // show loading state
+          const retryText = retryBtn.querySelector('.retry-text') as HTMLElement;
+          const retrySpinner = retryBtn.querySelector('.retry-spinner') as HTMLElement;
+          
+          if (retryText) retryText.classList.add('hidden');
+          if (retrySpinner) retrySpinner.classList.remove('hidden');
+          retryBtn.disabled = true;
+
           container.removeAttribute('data-error');
           this.queueMediaLoad(container);
+
+          // reset button state after attempt
+          // (success or failure will be handled by callbacks)
+          setTimeout(() => {
+            if (retryText) retryText.classList.remove('hidden');
+            if (retrySpinner) retrySpinner.classList.add('hidden');
+            retryBtn.disabled = false;
+          }, 1000);
         });
       }
     }
