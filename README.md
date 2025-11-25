@@ -1,16 +1,17 @@
 # [web]: david's portfolio [![deploy](https://github.com/totallynotdavid/totallynotdavid.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/totallynotdavid/totallynotdavid.github.io/actions/workflows/deploy.yml)
 
-This repo contains the source code for my personal website. The site is built with
-[Astro](https://astro.build/), [Tailwind CSS](https://tailwindcss.com/) and MDX. You can
-view the live site at [totallynotdavid.github.io](https://totallynotdavid.github.io).
+This repo contains the source code for my personal website. The site is built
+with [Astro](https://astro.build/), [Tailwind CSS](https://tailwindcss.com/) and
+MDX. You can view the live site at
+[totallynotdavid.github.io](https://totallynotdavid.github.io).
 
 The site is a place for my writing and a playground for building things I find
 interesting.
 
 ## Getting started
 
-To run the project locally, you'll need Bun. If you don't have Bun installed, grab it from
-[bun.sh](https://bun.sh/) or use npm/pnpm/yarn as alternatives.
+To run the project locally, you'll need Bun. If you don't have Bun installed,
+grab it from [bun.sh](https://bun.sh/) or use npm/pnpm/yarn as alternatives.
 
 First, clone the repository:
 
@@ -30,14 +31,14 @@ The site will be available at `http://localhost:4321`.
 
 ## Custom MDX components
 
-This site uses custom interactive components within MDX content. Here's how to use each
-one:
+This site uses custom interactive components within MDX content. Here's how to
+use each one:
 
 ### Annotation
 
-Add contextual side notes to your text, similar to margin notes in academic papers. On
-desktop, annotations appear alongside the text with animated SVG brackets. On mobile, they
-adapt to display underneath the annotated content.
+Add contextual side notes to your text, similar to margin notes in academic
+papers. On desktop, annotations appear alongside the text with animated SVG
+brackets. On mobile, they adapt to display underneath the annotated content.
 
 ```mdx
 import Annotation from "@/components/mdx/Annotation.astro";
@@ -59,8 +60,9 @@ Configuration:
 
 ### MediaEmbed
 
-Embed images, videos, and iframes with lazy loading, skeleton placeholders, and error
-handling. The component automatically detects media types based on file extensions.
+Embed images, videos, and iframes with lazy loading, skeleton placeholders, and
+error handling. The component automatically detects media types based on file
+extensions.
 
 For images (especially local assets), import the file directly:
 
@@ -92,14 +94,18 @@ For video content:
 
 Configuration:
 
-- `aspectRatio` - Prevents layout shift during loading ('16/9', '4/3', 'square', etc.)
-- `priority` - Set to `true` for above-the-fold content that should load immediately
-- Standard HTML video attributes (`controls`, `loop`, `muted`, `autoplay`) are supported
+- `aspectRatio` - Prevents layout shift during loading ('16/9', '4/3', 'square',
+  etc.)
+- `priority` - Set to `true` for above-the-fold content that should load
+  immediately
+- Standard HTML video attributes (`controls`, `loop`, `muted`, `autoplay`) are
+  supported
 
 ### Callout
 
-Create visually distinct blocks that draw attention to important links or external
-resources. Perfect for highlighting references, related content, or calls to action.
+Create visually distinct blocks that draw attention to important links or
+external resources. Perfect for highlighting references, related content, or
+calls to action.
 
 ```mdx
 import Callout from "@/components/mdx/Callout.astro";
@@ -112,13 +118,13 @@ import Callout from "@/components/mdx/Callout.astro";
 </Callout>
 ```
 
-The component requires only an `href` prop. Content can include any HTML or Markdown
-elements.
+The component requires only an `href` prop. Content can include any HTML or
+Markdown elements.
 
 ### Mark
 
-Apply subtle highlighter effects to text using CSS gradients for a more natural appearance
-than solid backgrounds.
+Apply subtle highlighter effects to text using CSS gradients for a more natural
+appearance than solid backgrounds.
 
 ```mdx
 import Mark from "@/components/mdx/Mark.astro";
