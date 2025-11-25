@@ -46,7 +46,7 @@ const annotationId = `annotation-${Math.random().toString(36).slice(2, 9)}`;
   </svg>
 
   <div
-    class="annotation-comment pointer-events-none absolute font-['Caveat',cursive] text-xl break-words whitespace-normal opacity-100 transition-all duration-350 ease-out"
+    class="annotation-comment pointer-events-none absolute font-['Caveat',cursive] text-xl wrap-break-word whitespace-normal opacity-100 transition-all duration-350 ease-out"
   >
     <slot name='comment' />
   </div>

@@ -54,7 +54,7 @@ function getPostUrl(post: Post): string {
             {posts.map(post => (
               <a
                 href={getPostUrl(post)}
-                class='post-item flex items-center justify-between gap-4 transition-colors group-hover:opacity-[0.45] hover:!opacity-100 focus:!opacity-100 motion-safe:transition-opacity'
+                class='post-item flex items-center justify-between gap-4 transition-colors group-hover:opacity-[0.45] hover:opacity-100! focus:opacity-100! motion-safe:transition-opacity'
               >
                 <h2 class='text-text-primary font-[460] transition-colors'>
                   {post.data.title}
