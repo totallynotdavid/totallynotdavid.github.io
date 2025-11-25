@@ -8,7 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check": "biome check --write ."
+    "format": "biome format && biome check --write . && bun x prettier \"**/*.{md,yml}\" --write --print-width=80 --prose-wrap=always"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.12",
