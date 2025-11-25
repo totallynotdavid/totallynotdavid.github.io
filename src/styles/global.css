@@ -74,6 +74,10 @@
     scroll-behavior: smooth;
     scroll-padding-top: 2rem;
     line-height: 1.5;
+
+    /* fix for jumping scrollbar */
+    width:100vw;
+    overflow-x:hidden;
   }
 
   body {
