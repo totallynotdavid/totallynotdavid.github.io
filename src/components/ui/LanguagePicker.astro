@@ -41,7 +41,7 @@ const languageOptions = Object.entries(languages).map(
       languageOptions.map(({ code, href, isActive }) => (
         <li>
           {isActive ? (
-            <span class='text-text-primary rounded bg-black/5 px-2 py-1 dark:bg-white/10'>
+            <span class='text-text-primary touch-target rounded bg-black/5 px-2 py-1 dark:bg-white/10'>
               {code.toUpperCase()}
             </span>
           ) : (
@@ -49,7 +49,7 @@ const languageOptions = Object.entries(languages).map(
               href={href}
               hreflang={code}
               lang={code}
-              class='text-text-secondary hover:text-text-primary rounded px-2 py-1 underline-offset-4 transition-colors focus-visible:ring-2 focus-visible:ring-black/30 dark:focus-visible:ring-white/30'
+              class='text-text-secondary hover:text-text-primary touch-target rounded px-2 py-1 underline-offset-4 transition-colors focus-visible:ring-2 focus-visible:ring-black/30 dark:focus-visible:ring-white/30'
             >
               {code.toUpperCase()}
             </a>
