@@ -102,7 +102,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       ogImage={ogImage}
       keywords={keywords}
     />
-    <Analytics websiteId={SITE_CONFIG.analytics.umamiWebsiteId} />
+    {import.meta.env.PROD && <Analytics websiteId={SITE_CONFIG.analytics.umamiWebsiteId} />}
     <ClientRouter />
   </head>
   <body>
