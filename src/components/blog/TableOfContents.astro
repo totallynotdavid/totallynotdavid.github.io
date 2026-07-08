@@ -10,7 +10,9 @@ interface Props {
 }
 
 const { headings } = Astro.props;
-const tocHeadings = headings.filter((h) => h.depth <= 2);
+const tocHeadings = headings.filter(
+  (h) => h.depth <= 2 && h.slug !== 'footnote-label',
+);
 
 const lang = Astro.currentLocale || DEFAULT_LANGUAGE;
 const t = useTranslations(lang);
