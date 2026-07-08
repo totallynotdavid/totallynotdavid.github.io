@@ -76,8 +76,8 @@
     line-height: 1.5;
 
     /* fix for jumping scrollbar */
-    width:100vw;
-    overflow-x:hidden;
+    width: 100vw;
+    overflow-x: hidden;
   }
 
   body {
