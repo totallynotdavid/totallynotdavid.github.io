@@ -20,7 +20,7 @@ jobs:
     name: Validate Astro project
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - uses: oven-sh/setup-bun@563911925f97b52638b2d040c6390de93f9f241a # v2.1.0
         with:
