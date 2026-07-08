@@ -4,7 +4,6 @@ import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
 import footnoteFixes from './plugins/footnote-fixes.ts';
 
-// To change the default language, update both this file and src/i18n/config.ts
 const DEFAULT_LANGUAGE = 'en' as const;
 const SUPPORTED_LANGUAGES = ['en', 'es'] as const;
 
@@ -22,9 +21,6 @@ export default defineConfig({
     },
   },
 
-  // Sätteri is the v7 default; set `processor` only to register a custom
-  // hast plugin for footnote quirks. Sätteri's default footnote label and
-  // back-link content ('Footnotes' / '↩') already match what we want.
   markdown: {
     processor: satteri({
       hastPlugins: [footnoteFixes],
