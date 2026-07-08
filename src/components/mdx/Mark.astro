@@ -1,10 +1,10 @@
 ---
 interface Props {
   color?: string;
-  as?: keyof HTMLElementTagNameMap;
+  as?: 'mark' | 'span';
 }
 const { color = 'var(--color-mark-bg)', as = 'mark' } = Astro.props as Props;
-const Tag = as as any;
+const Tag = as;
 ---
 
 <Tag data-marker={true} style={`--mark-color: ${color}`} class='mark-highlight'>
