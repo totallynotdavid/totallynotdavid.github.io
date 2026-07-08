@@ -11,13 +11,13 @@
     "format": "biome format && biome check --write . && bun x prettier \"**/*.{md,yml}\" --write --print-width=80 --prose-wrap=always"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.13",
-    "@astrojs/tailwind": "6.0.2",
+    "@astrojs/markdown-satteri": "^0.3.3",
+    "@astrojs/mdx": "7.0.2",
     "@fontsource/caveat": "^5.2.8",
     "@fontsource/inter": "^5.2.8",
-    "@tailwindcss/typography": "^0.5.16",
-    "@tailwindcss/vite": "^4.1.18",
-    "astro": "5.16.7",
-    "tailwindcss": "^4.1.18"
+    "@tailwindcss/typography": "^0.5.20",
+    "@tailwindcss/vite": "^4.3.2",
+    "astro": "7.0.6",
+    "tailwindcss": "^4.3.2"
   }
 }
