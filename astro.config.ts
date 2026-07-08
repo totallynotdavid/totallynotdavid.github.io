@@ -20,15 +20,6 @@ export default defineConfig({
     },
   },
 
-  markdown: {
-    remarkRehype: {
-      footnoteLabel: 'Footnotes', // if empty, it will still render a heading, kept to translate it later
-      footnoteLabelTagName: 'h3', // added to avoid adding footnotes on the toc component (only counts h1 and h2)
-      footnoteLabelProperties: { class: 'sr-only' },
-      footnoteBackContent: '↩',
-    },
-  },
-
   build: {
     inlineStylesheets: 'always',
   },
