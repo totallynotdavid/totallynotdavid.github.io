@@ -65,7 +65,7 @@
   z-index: 2;
 }
 
-.footnotes .data-footnote-backref {
+.footnotes [data-footnote-backref] {
   z-index: 1;
   position: absolute;
   inset: 0;
