@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.3.3",
-    "@astrojs/mdx": "7.0.2",
+    "@astrojs/mdx": "7.0.3",
     "@fontsource/caveat": "^5.2.8",
     "@fontsource/inter": "^5.2.8",
     "@tailwindcss/typography": "^0.5.20",
