@@ -11,7 +11,7 @@
     "format": "biome format && biome check --write . && bun x prettier \"**/*.{md,yml}\" --write --print-width=80 --prose-wrap=always"
   },
   "dependencies": {
-    "@astrojs/markdown-satteri": "^0.3.4",
+    "@astrojs/markdown-satteri": "^0.4.0",
     "@astrojs/mdx": "7.0.3",
     "@fontsource/caveat": "^5.2.8",
     "@fontsource/inter": "^5.2.8",
