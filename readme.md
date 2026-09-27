@@ -29,6 +29,12 @@ bun dev
 
 The site will be available at `http://localhost:4321`.
 
+Biome formats and lints the code, Prettier formats Markdown and YAML, and MDX is
+not auto-formatted.
+
+`typescript` stays on 6.x: `@astrojs/check` 0.9.10 peers `typescript ^5 || ^6`
+and `astro check` rejects TypeScript 7.
+
 ## Custom MDX components
 
 This site uses custom interactive components within MDX content. Here's how to
