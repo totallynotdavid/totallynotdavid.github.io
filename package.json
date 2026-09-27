@@ -8,16 +8,23 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "format": "biome format && biome check --write . && bun x prettier \"**/*.{md,yml}\" --write --print-width=80 --prose-wrap=always"
+    "format": "biome format && biome check --write . && prettier \"**/*.{md,yml}\" --write",
+    "format:check": "biome ci . && prettier \"**/*.{md,yml}\" --check"
   },
   "dependencies": {
-    "@astrojs/markdown-satteri": "^0.4.1",
-    "@astrojs/mdx": "8.0.1",
-    "@fontsource/caveat": "^5.2.8",
-    "@fontsource/inter": "^5.2.8",
+    "@astrojs/markdown-satteri": "^0.4.2",
+    "@astrojs/mdx": "8.0.2",
+    "@fontsource/caveat": "^5.3.0",
+    "@fontsource/inter": "^5.3.0",
     "@tailwindcss/typography": "^0.5.20",
-    "@tailwindcss/vite": "^4.3.2",
-    "astro": "7.3.3",
-    "tailwindcss": "^4.3.2"
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "7.3.5",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@biomejs/biome": "2.5.14",
+    "prettier": "^3.9.9",
+    "typescript": "6.0.3"
   }
 }
