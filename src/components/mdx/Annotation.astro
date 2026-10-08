@@ -1,7 +1,5 @@
 ---
 interface Props {
-  animationDuration?: number;
-  commentDelay?: number;
   strokeWidth?: number;
   bracketColor?: string;
   commentMaxWidth?: number;
@@ -12,8 +10,6 @@ interface Props {
 }
 
 const {
-  animationDuration = 650,
-  commentDelay = 120,
   strokeWidth = 2,
   bracketColor = 'currentColor',
   commentMaxWidth = 260,
@@ -54,8 +50,6 @@ const annotationId = `annotation-${Math.random().toString(36).slice(2, 9)}`;
 
 <style
   define:vars={{
-    animationDuration: `${animationDuration}ms`,
-    commentDelay: `${commentDelay}ms`,
     commentMaxWidth: `${commentMaxWidth}px`,
     verticalSpacing: `${verticalSpacing}px`,
     horizontalSpacing: `${horizontalSpacing}px`,
@@ -147,8 +141,7 @@ const annotationId = `annotation-${Math.random().toString(36).slice(2, 9)}`;
 <script
   define:vars={{
     annotationId,
-    animationDuration,
-    commentDelay,
+    commentMaxWidth,
     mobileBreakpoint,
     disableAnimation,
     verticalSpacing,
@@ -233,7 +226,8 @@ const annotationId = `annotation-${Math.random().toString(36).slice(2, 9)}`;
 
       const textRect = textEl.getBoundingClientRect();
       const bracketWidth = 44;
-      const totalRightSpace = bracketWidth + 14 + 260;
+      const totalRightSpace =
+        bracketWidth + 14 + this.config.commentMaxWidth;
       const availableSpace =
         window.innerWidth - (textRect.right + this.config.horizontalSpacing);
 
@@ -347,8 +341,7 @@ const annotationId = `annotation-${Math.random().toString(36).slice(2, 9)}`;
   }
 
   const manager = new AnnotationManager(annotationId, {
-    animationDuration,
-    commentDelay,
+    commentMaxWidth,
     mobileBreakpoint,
     disableAnimation,
     verticalSpacing,
