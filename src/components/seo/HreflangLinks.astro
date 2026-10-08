@@ -1,26 +1,19 @@
 ---
 import { getAbsoluteLocaleUrl } from 'astro:i18n';
-import {
-  createLanguagePattern,
-  DEFAULT_LANGUAGE,
-  languages,
-} from '@/i18n/config';
+import { DEFAULT_LANGUAGE } from '@/config/site';
+import { getAlternates } from '@/lib/alternates';
 
-// Get the current path without locale prefix
-const langPattern = createLanguagePattern();
-const currentPath = Astro.url.pathname
-  .replace(langPattern, '')
-  .replace(/^\//, '');
+const { path, languages } = await getAlternates(Astro.url.pathname);
 
-const hreflangLinks = Object.keys(languages).map((langCode) => {
-  const href = getAbsoluteLocaleUrl(langCode, currentPath);
-  return {
-    lang: langCode,
-    href,
-  };
-});
+const hreflangLinks = languages.map((lang) => ({
+  lang,
+  href: getAbsoluteLocaleUrl(lang, path),
+}));
 
-const defaultLangHref = getAbsoluteLocaleUrl(DEFAULT_LANGUAGE, currentPath);
+const defaultLangHref = getAbsoluteLocaleUrl(
+  languages.includes(DEFAULT_LANGUAGE) ? DEFAULT_LANGUAGE : languages[0],
+  path,
+);
 ---
 
 {

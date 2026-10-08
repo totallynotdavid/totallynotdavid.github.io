@@ -1,10 +1,7 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import {
-  createLanguagePattern,
-  DEFAULT_LANGUAGE,
-  languages,
-} from '@/i18n/config';
+import { DEFAULT_LANGUAGE } from '@/config/site';
+import { getAlternates } from '@/lib/alternates';
 
 interface Props {
   class?: string;
@@ -14,25 +11,16 @@ const { class: extra = '' } = Astro.props as Props;
 
 const currentLang = Astro.currentLocale || DEFAULT_LANGUAGE;
 
-const langPattern = createLanguagePattern();
-const currentPath = Astro.url.pathname
-  .replace(langPattern, '')
-  .replace(/^\/|\/$/g, '');
+const { path, languages } = await getAlternates(Astro.url.pathname);
 
-const languageOptions = Object.entries(languages).map(
-  ([langCode, langConfig]) => {
-    const href = getRelativeLocaleUrl(langCode, currentPath || '/');
-
-    return {
-      code: langCode,
-      label: langConfig.name,
-      href,
-      isActive: langCode === currentLang,
-    };
-  },
-);
+const languageOptions = languages.map((code) => ({
+  code,
+  href: getRelativeLocaleUrl(code, path),
+  isActive: code === currentLang,
+}));
 ---
 
+{languageOptions.length > 1 && (
 <nav class={`language-switcher ${extra}`.trim()} aria-label='Language switcher'>
   <ul
     class='m-0 flex list-none items-center gap-2 rounded-md bg-white/90 p-0 px-1 py-1 text-xs font-medium shadow-sm backdrop-blur-sm sm:bg-transparent sm:px-0 sm:py-0 sm:shadow-none dark:bg-gray-900/90 sm:dark:bg-transparent'
@@ -59,3 +47,4 @@ const languageOptions = Object.entries(languages).map(
     }
   </ul>
 </nav>
+)}
