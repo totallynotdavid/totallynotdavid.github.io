@@ -1,7 +1,8 @@
-import { SITE_CONFIG } from '@/config/site';
-
-export const DEFAULT_LANGUAGE = 'en' as const;
-export const SUPPORTED_LANGUAGES = ['en', 'es'] as const;
+import {
+  DEFAULT_LANGUAGE,
+  SITE_CONFIG,
+  type SUPPORTED_LANGUAGES,
+} from '@/config/site';
 
 export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
 
@@ -18,10 +19,6 @@ export const languages: Record<SupportedLanguage, LanguageConfig> = {
 };
 
 export const defaultLanguage = languages[DEFAULT_LANGUAGE];
-
-export function createLanguagePattern(): RegExp {
-  return new RegExp(`^/(${SUPPORTED_LANGUAGES.join('|')})`);
-}
 
 export const ui = {
   en: {

@@ -1,10 +1,17 @@
+---
+import { DEFAULT_LANGUAGE } from '@/config/site';
+
+const target = `/${DEFAULT_LANGUAGE}/`;
+const canonical = new URL(target, Astro.site);
+---
+
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <script>location.replace('/en/')</script>
-  <meta http-equiv="refresh" content="0;url=/en/">
-  <link rel="canonical" href="https://totallynotdavid.github.io/en/">
-  <meta name="robots" content="noindex">
-</head>
+<html lang={DEFAULT_LANGUAGE}>
+  <head>
+    <meta charset='UTF-8' />
+    <script is:inline set:html={`location.replace(${JSON.stringify(target)})`} />
+    <meta http-equiv='refresh' content={`0;url=${target}`} />
+    <link rel='canonical' href={canonical} />
+    <meta name='robots' content='noindex' />
+  </head>
 </html>

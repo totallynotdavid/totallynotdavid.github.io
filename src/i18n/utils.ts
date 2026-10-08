@@ -1,9 +1,5 @@
-import {
-  DEFAULT_LANGUAGE,
-  languages,
-  type SupportedLanguage,
-  ui,
-} from './config';
+import { DEFAULT_LANGUAGE } from '@/config/site';
+import { languages, type SupportedLanguage, ui } from './config';
 
 export function useTranslations(lang: string) {
   const defaultUi = ui[DEFAULT_LANGUAGE];
