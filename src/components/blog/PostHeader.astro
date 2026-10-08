@@ -6,7 +6,6 @@ interface Props {
   prefix?: string;
   monthFirst?: boolean;
   showLastModified?: boolean;
-  filePath?: string;
 }
 
 const {
@@ -18,17 +17,12 @@ const {
   showLastModified = false,
 } = Astro.props as Props;
 
-const getBuildTime = (): Date => {
-  return new Date();
-};
-
-const buildTime = showLastModified ? getBuildTime() : undefined;
-const fallbackDate = showLastModified ? buildTime : undefined;
+// When no publication date is available, "Updated" uses the build date.
 const dateToDisplay = pubDate
-  ? pubDate instanceof Date
-    ? pubDate
-    : new Date(pubDate)
-  : buildTime || fallbackDate;
+  ? new Date(pubDate)
+  : showLastModified
+    ? new Date()
+    : undefined;
 
 function formatDate(d: Date, monthFirst?: boolean): string {
   try {
