@@ -1,37 +1,35 @@
 ---
+import { getEntry, render } from 'astro:content';
 import PostHeader from '@/components/blog/PostHeader.astro';
 import PostList from '@/components/blog/PostList.astro';
 import mdxComponents from '@/components/mdx';
-import HomeContentEs from '@/content/home.es.mdx';
-import HomeContentEn from '@/content/home.mdx';
-import { DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES } from '@/i18n/config';
+import { SUPPORTED_LANGUAGES } from '@/config/site';
 import { useTranslations } from '@/i18n/utils';
 import Layout from '@/layouts/Layout.astro';
 
 export async function getStaticPaths() {
-  return SUPPORTED_LANGUAGES.map((lang) => ({ params: { lang } }));
+  return Promise.all(
+    SUPPORTED_LANGUAGES.map(async (lang) => {
+      const home = await getEntry('home', lang);
+      if (!home) {
+        throw new Error(`Missing home page: src/content/home/${lang}.mdx`);
+      }
+      return { params: { lang }, props: { home } };
+    }),
+  );
 }
 
 const { lang } = Astro.params;
+const { home } = Astro.props;
 const t = useTranslations(lang);
-
-const homeContentMap = {
-  en: HomeContentEn,
-  es: HomeContentEs,
-};
-
-const HomeContent = homeContentMap[lang] || homeContentMap[DEFAULT_LANGUAGE];
+const { Content: HomeContent } = await render(home);
 ---
 
 <Layout title={t('site.title')} description={t('site.description')} type='WebPage'>
   <main class='flex w-full justify-center px-6 pt-12 pb-10 md:pt-20'>
     <div class='w-full max-w-520'>
       <article class='prose-a:styled-link prose dark:prose-invert mb-8 max-w-none'>
-        <PostHeader
-          title={t('site.title')}
-          showLastModified={true}
-          filePath='src/pages/[lang]/index.astro'
-        />
+        <PostHeader title={t('site.title')} showLastModified={true} />
         <HomeContent components={mdxComponents} />
       </article>
 
