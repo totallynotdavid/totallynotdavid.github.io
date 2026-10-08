@@ -1,25 +1,20 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import { getCollection, render } from 'astro:content';
+import { render } from 'astro:content';
 import mdxComponents from '@/components/mdx';
 import PostLayout from '@/layouts/PostLayout.astro';
+import { getPosts, type Post, parsePostId } from '@/lib/posts';
 
 export async function getStaticPaths() {
-  const allPosts = await getCollection('posts');
+  const posts = await getPosts();
 
-  return allPosts.map((post) => {
-    const [lang, ...slugParts] = post.id.split('/');
-    const slug = slugParts.join('/').replace(/\.mdx?$/, '');
-
-    return {
-      params: { lang, slug },
-      props: { post },
-    };
-  });
+  return posts.map((post) => ({
+    params: parsePostId(post.id),
+    props: { post },
+  }));
 }
 
 interface Props {
-  post: CollectionEntry<'posts'>;
+  post: Post;
 }
 
 const { post } = Astro.props;
@@ -28,7 +23,7 @@ const { Content, headings } = await render(post);
 
 <PostLayout
   title={post.data.title}
-  description={post.data.description || ''}
+  description={post.data.description}
   headings={headings}
   pubDate={post.data.pubDate}
   updatedDate={post.data.updatedDate}
