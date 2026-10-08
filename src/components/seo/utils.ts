@@ -1,15 +1,17 @@
-import { SITE_CONFIG } from '@/config/site';
+import { SITE_URL } from '@/config/site';
 
-export function createImageObject(url: string, baseUrl?: string) {
-  const fullUrl = baseUrl ? new URL(url, baseUrl).toString() : url;
+export function createImageObject(
+  image: { path: string; width: number; height: number },
+  baseUrl: string | URL,
+) {
   return {
     '@type': 'ImageObject' as const,
-    url: fullUrl,
-    width: 1200,
-    height: 630,
+    url: new URL(image.path, baseUrl).toString(),
+    width: image.width,
+    height: image.height,
   };
 }
 
 export function getCanonicalUrl(pathname: string, site?: URL) {
-  return new URL(pathname, site || SITE_CONFIG.url).toString();
+  return new URL(pathname, site || SITE_URL).toString();
 }

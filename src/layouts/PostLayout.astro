@@ -1,16 +1,17 @@
 ---
-import type { MarkdownHeading } from 'astro';
+import '@/styles/footnotes.css';
+import type { ImageMetadata, MarkdownHeading } from 'astro';
 import PostHeader from '@/components/blog/PostHeader.astro';
 import TableOfContents from '@/components/blog/TableOfContents.astro';
 import Layout from '@/layouts/Layout.astro';
 
 interface Props {
   title: string;
-  description: string;
+  description?: string;
   headings: MarkdownHeading[];
   pubDate: Date;
   updatedDate?: Date;
-  ogImage?: string;
+  ogImage?: ImageMetadata;
   keywords?: string[];
 }
 
@@ -23,13 +24,6 @@ const {
   ogImage,
   keywords,
 } = Astro.props;
-
-// remark-rehype will always include a 'Footnotes' section if footnotes are present
-// bug: astro will still load footnotes on pages where this condition is not met?
-//      the conditions are fine, but when building and inspecting, the css is still there
-if (headings.some((h) => h.text.toLowerCase().includes('footnote'))) {
-  await import('@/styles/footnotes.css');
-}
 ---
 
 <Layout
