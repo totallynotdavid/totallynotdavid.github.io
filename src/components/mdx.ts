@@ -9,5 +9,3 @@ export const mdxComponents = {
   h2: H2,
   hr: HrDots,
 };
-
-export default mdxComponents;
