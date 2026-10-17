@@ -81,7 +81,6 @@ const homeUrl = getRelativeLocaleUrl(lang, '');
     private lastFlash: HTMLElement | null = null;
     private flashTimeout: number | null = null;
     private abortController: AbortController = new AbortController();
-    private resizeObserver: ResizeObserver | null = null;
 
     constructor() {
       this.init();
@@ -128,7 +127,6 @@ const homeUrl = getRelativeLocaleUrl(lang, '');
               (e.currentTarget as HTMLAnchorElement).getAttribute('href') || '';
             const slug = decodeURIComponent(hash.replace('#', ''));
 
-            // this is an announcement for screen readers
             this.announceNavigation(slug);
 
             requestAnimationFrame(() => this.flashHeading(slug));
@@ -180,7 +178,6 @@ const homeUrl = getRelativeLocaleUrl(lang, '');
 
       if (!slug) return;
 
-      // activate state for current link
       const activeLink = this.links.get(slug);
       if (activeLink) {
         activeLink.classList.add('active');
@@ -191,10 +188,10 @@ const homeUrl = getRelativeLocaleUrl(lang, '');
     private updateActive(): void {
       if (!this.headings.length) return;
 
-      const TOP_OFFSET = 96; // px from top to consider item current
+      // A heading is current once its top is within this many px of the viewport top.
+      const TOP_OFFSET = 96;
       let currentIndex = -1;
 
-      // find the heading that's currently in view
       for (let i = 0; i < this.headings.length; i++) {
         const rect = this.headings[i].getBoundingClientRect();
         if (rect.top - TOP_OFFSET <= 0) {
@@ -213,7 +210,6 @@ const homeUrl = getRelativeLocaleUrl(lang, '');
       const el = document.getElementById(slug);
       if (!el) return;
 
-      // clear previous flash
       if (this.lastFlash && this.lastFlash !== el) {
         this.lastFlash.classList.remove('target');
       }
@@ -241,11 +237,6 @@ const homeUrl = getRelativeLocaleUrl(lang, '');
 
     destroy(): void {
       this.abortController.abort();
-
-      if (this.resizeObserver) {
-        this.resizeObserver.disconnect();
-        this.resizeObserver = null;
-      }
 
       if (this.flashTimeout) {
         window.clearTimeout(this.flashTimeout);
