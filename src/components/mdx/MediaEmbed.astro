@@ -56,43 +56,25 @@ const {
   densities = [1, 2],
 } = Astro.props;
 
-// Check if src is an imported image object or a string
-const isImportedImage = typeof src === 'object' && src !== null && 'src' in src;
-const srcString = isImportedImage
-  ? (src as ImageMetadata).src
-  : (src as string);
+const isImportedImage = typeof src === 'object';
+const srcString = isImportedImage ? src.src : src;
 
-const getMediaType = (
-  src: string | ImageMetadata,
-): 'video' | 'image' | 'iframe' => {
+const getMediaType = (): 'video' | 'image' | 'iframe' => {
   if (type) return type;
+  if (typeof src === 'object') return 'image';
 
-  if (isImportedImage) return 'image';
-
-  const srcStr = typeof src === 'string' ? src : src.src;
-
-  if (srcStr.includes('?origWidth=') && srcStr.includes('&origFormat=')) {
-    const formatMatch = srcStr.match(/&origFormat=(\w+)/);
-    if (formatMatch) {
-      const format = formatMatch[1].toLowerCase();
-      const imageFormats = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'avif'];
-      if (imageFormats.includes(format)) return 'image';
-    }
-  }
-
-  const urlWithoutQuery = srcStr.split('?')[0];
-  const extension = urlWithoutQuery.split('.').pop()?.toLowerCase();
+  const extension = src.split('?')[0].split('.').pop()?.toLowerCase() ?? '';
 
   const videoExtensions = ['mp4', 'webm', 'ogg', 'mov', 'avi', 'm4v'];
   const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'avif'];
 
-  if (videoExtensions.includes(extension || '')) return 'video';
-  if (imageExtensions.includes(extension || '')) return 'image';
+  if (videoExtensions.includes(extension)) return 'video';
+  if (imageExtensions.includes(extension)) return 'image';
 
   return 'iframe';
 };
 
-const mediaType = getMediaType(src);
+const mediaType = getMediaType();
 const mediaId = `media-${Math.random().toString(36).slice(2, 9)}`;
 
 const aspectRatioClasses: Record<string, string> = {
@@ -111,7 +93,6 @@ const aspectRatioClass = aspectRatioClasses[aspectRatio] || '';
 const loadingStrategy = priority ? 'eager' : 'lazy';
 const showPlaceholder = !priority;
 
-// Prepare props for Astro Image/Picture components
 const imageProps = {
   alt,
   width: width || (isImportedImage ? undefined : 1200),
@@ -321,14 +302,6 @@ const pictureProps = {
 </style>
 
 <script>
-  // Extend the global Event types for custom events
-  declare global {
-    interface WindowEventMap {
-      mediaLoaded: CustomEvent<{ container: HTMLElement }>;
-      mediaError: CustomEvent<{ container: HTMLElement }>;
-    }
-  }
-
   class UnifiedMediaLoader {
     private observer: IntersectionObserver | null = null;
     private loadQueue: Set<HTMLElement> = new Set();
@@ -337,16 +310,10 @@ const pictureProps = {
 
     constructor() {
       this.init();
-      this.setupImageHandlers();
     }
 
     init() {
       this.loadPriorityMedia();
-
-      if (!('IntersectionObserver' in window)) {
-        this.fallbackLoad();
-        return;
-      }
 
       this.observer = new IntersectionObserver(
         entries => {
@@ -363,32 +330,11 @@ const pictureProps = {
         }
       );
 
-      // observe all non-priority containers
       document
         .querySelectorAll('[data-media-container]:not([data-priority="true"])')
         .forEach(container => {
           this.observer?.observe(container);
         });
-    }
-
-    setupImageHandlers() {
-      // Use proper event typing
-      window.addEventListener('mediaLoaded', this.handleMediaLoad.bind(this));
-      window.addEventListener('mediaError', this.handleMediaError.bind(this));
-    }
-
-    handleMediaLoad(event: CustomEvent<{ container: HTMLElement }>) {
-      const container = event.detail.container;
-      if (container) {
-        this.onMediaLoad(container);
-      }
-    }
-
-    handleMediaError(event: CustomEvent<{ container: HTMLElement }>) {
-      const container = event.detail.container;
-      if (container) {
-        this.onMediaError(container);
-      }
     }
 
     loadPriorityMedia() {
@@ -397,14 +343,6 @@ const pictureProps = {
         .forEach(container => {
           this.loadMedia(container as HTMLElement);
         });
-    }
-
-    fallbackLoad() {
-      document.querySelectorAll('[data-media-container]').forEach((container, index) => {
-        setTimeout(() => {
-          this.loadMedia(container as HTMLElement);
-        }, index * 100);
-      });
     }
 
     queueMediaLoad(container: HTMLElement) {
@@ -589,7 +527,6 @@ const pictureProps = {
       if (retryBtn && !retryBtn.hasAttribute('data-listener-added')) {
         retryBtn.setAttribute('data-listener-added', 'true');
         retryBtn.addEventListener('click', () => {
-          // show loading state
           const retryText = retryBtn.querySelector('.retry-text') as HTMLElement;
           const retrySpinner = retryBtn.querySelector('.retry-spinner') as HTMLElement;
           
@@ -600,8 +537,6 @@ const pictureProps = {
           container.removeAttribute('data-error');
           this.queueMediaLoad(container);
 
-          // reset button state after attempt
-          // (success or failure will be handled by callbacks)
           setTimeout(() => {
             if (retryText) retryText.classList.remove('hidden');
             if (retrySpinner) retrySpinner.classList.add('hidden');
@@ -616,8 +551,6 @@ const pictureProps = {
         this.observer.disconnect();
       }
       this.loadQueue.clear();
-      window.removeEventListener('mediaLoaded', this.handleMediaLoad.bind(this));
-      window.removeEventListener('mediaError', this.handleMediaError.bind(this));
     }
   }
 
