@@ -1,15 +1,13 @@
 ---
 interface Props {
   color?: string;
-  as?: 'mark' | 'span';
 }
-const { color = 'var(--color-mark-bg)', as = 'mark' } = Astro.props as Props;
-const Tag = as;
+const { color = 'var(--color-mark-bg)' } = Astro.props;
 ---
 
-<Tag data-marker={true} style={`--mark-color: ${color}`} class='mark-highlight'>
+<mark style={`--mark-color: ${color}`} class='mark-highlight'>
   <slot />
-</Tag>
+</mark>
 <style>
   .mark-highlight {
     @apply inline;
@@ -41,24 +39,6 @@ const Tag = as;
       );
       opacity: 0.8;
       filter: brightness(1.1) saturate(1.05);
-    }
-  }
-
-  @supports not (background: color-mix(in srgb, red, transparent)) {
-    .mark-highlight {
-      background-image: linear-gradient(
-        88deg,
-        var(--mark-color) 0%,
-        var(--mark-color) 100%
-      );
-      opacity: 0.75;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .mark-highlight {
-        opacity: 0.6;
-        filter: brightness(1.3) saturate(1.4);
-      }
     }
   }
 </style>
