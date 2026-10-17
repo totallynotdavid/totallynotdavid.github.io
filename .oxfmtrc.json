@@ -1,0 +1,13 @@
+{
+  "printWidth": 80,
+  "proseWrap": "always",
+  "ignorePatterns": [
+    "**/*.ts",
+    "**/*.js",
+    "**/*.mjs",
+    "**/*.json",
+    "**/*.css",
+    "**/*.mdx",
+    "**/*.astro"
+  ]
+}

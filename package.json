@@ -2,15 +2,6 @@
   "name": "totallynotdavid-portfolio",
   "type": "module",
   "private": "true",
-  "scripts": {
-    "dev": "astro dev",
-    "dev:host": "astro dev --host",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "format": "biome format && biome check --write . && bunx prettier --print-width 80 --prose-wrap always --write \"**/*.{md,yml}\"",
-    "format:check": "biome ci . && bunx prettier --print-width 80 --prose-wrap always --check \"**/*.{md,yml}\""
-  },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.4.3",
     "@astrojs/mdx": "8.0.3",
@@ -24,6 +15,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "@biomejs/biome": "2.5.15",
+    "oxfmt": "0.73.0",
     "typescript": "6.0.3"
   }
 }
