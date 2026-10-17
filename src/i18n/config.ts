@@ -1,29 +1,14 @@
-import {
-  DEFAULT_LANGUAGE,
-  SITE_CONFIG,
-  type SUPPORTED_LANGUAGES,
-} from '@/config/site';
+import { SITE_CONFIG, type SUPPORTED_LANGUAGES } from '@/config/site';
 
 export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
 
-export interface LanguageConfig {
-  code: string;
-  name: string;
-  locale: string;
-  rtl?: boolean;
-}
-
-export const languages: Record<SupportedLanguage, LanguageConfig> = {
-  en: { code: 'en', name: 'English', locale: 'en-US' },
-  es: { code: 'es', name: 'Español', locale: 'es-ES' },
+export const locales: Record<SupportedLanguage, string> = {
+  en: 'en-US',
+  es: 'es-ES',
 };
-
-export const defaultLanguage = languages[DEFAULT_LANGUAGE];
 
 export const ui = {
   en: {
-    'nav.home': 'Home',
-    'nav.posts': 'Posts',
     'site.title': SITE_CONFIG.title,
     'site.description': SITE_CONFIG.description.en,
     'posts.draft': 'DRAFT',
@@ -34,8 +19,6 @@ export const ui = {
     'toc.jump_to_section': 'Jump to section:',
   },
   es: {
-    'nav.home': 'Inicio',
-    'nav.posts': 'Artículos',
     'site.title': SITE_CONFIG.title,
     'site.description': SITE_CONFIG.description.es,
     'posts.draft': 'BORRADOR',

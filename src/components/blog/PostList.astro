@@ -1,17 +1,11 @@
 ---
 import { DEFAULT_LANGUAGE } from '@/config/site';
-import {
-  defaultLanguage,
-  languages,
-  type SupportedLanguage,
-} from '@/i18n/config';
-import { useTranslations } from '@/i18n/utils';
+import { getLocale, useTranslations } from '@/i18n/utils';
 import { getPosts, type Post } from '@/lib/posts';
 
 const lang = Astro.currentLocale || DEFAULT_LANGUAGE;
 const t = useTranslations(lang);
-const locale =
-  languages[lang as SupportedLanguage]?.locale || defaultLanguage.locale;
+const locale = getLocale(lang);
 const isProd = import.meta.env.PROD;
 
 const postsByYear: Record<number, Post[]> = {};

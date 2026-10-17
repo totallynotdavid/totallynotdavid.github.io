@@ -1,18 +1,17 @@
 import { DEFAULT_LANGUAGE } from '@/config/site';
-import { languages, type SupportedLanguage, ui } from './config';
+import { locales, type SupportedLanguage, ui } from './config';
 
 export function useTranslations(lang: string) {
-  const defaultUi = ui[DEFAULT_LANGUAGE];
-  const langUi = ui[lang as SupportedLanguage] || defaultUi;
+  const langUi = ui[lang as SupportedLanguage] ?? ui[DEFAULT_LANGUAGE];
 
-  return (key: keyof typeof defaultUi): string => {
-    return langUi[key] || defaultUi[key];
-  };
+  return (key: keyof (typeof ui)[typeof DEFAULT_LANGUAGE]): string =>
+    langUi[key];
+}
+
+export function getLocale(lang: string): string {
+  return locales[lang as SupportedLanguage] ?? locales[DEFAULT_LANGUAGE];
 }
 
 export function getOgLocale(lang: string): string {
-  return (
-    languages[lang as SupportedLanguage]?.locale ||
-    languages[DEFAULT_LANGUAGE].locale
-  ).replace('-', '_');
+  return getLocale(lang).replace('-', '_');
 }
