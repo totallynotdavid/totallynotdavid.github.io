@@ -61,7 +61,6 @@ const annotationId = `annotation-${Math.random().toString(36).slice(2, 9)}`;
     --comment-offset: 36px;
   }
 
-  /* default: vertical bracket for desktop */
   .annotation .annotation-bracket {
     left: calc(100% + var(--horizontalSpacing));
     width: var(--bracket-width);
@@ -77,7 +76,6 @@ const annotationId = `annotation-${Math.random().toString(36).slice(2, 9)}`;
     width: max-content;
   }
 
-  /* smaller devices: horizontal bracket */
   .annotation.mobile-layout {
     margin-bottom: calc(var(--comment-offset) + 30px);
   }
@@ -155,7 +153,6 @@ const annotationId = `annotation-${Math.random().toString(36).slice(2, 9)}`;
       this.config = config;
       this.element = document.querySelector(`[data-annotation-id="${id}"]`);
       this.resizeObserver = null;
-      this.abortController = new AbortController();
       this.animationFrame = null;
       this.prefersReducedMotion =
         window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches || false;
@@ -258,7 +255,6 @@ const annotationId = `annotation-${Math.random().toString(36).slice(2, 9)}`;
         pathData = this.createVerticalBracket(bracketHeight);
         viewBox = `-14 0 58 ${bracketHeight + 4}`;
 
-        // check if the comment should be flipped to avoid overflow
         if (comment) {
           const commentRect = comment.getBoundingClientRect();
           const wouldOverflow = commentRect.right > window.innerWidth - 16;
@@ -307,27 +303,14 @@ const annotationId = `annotation-${Math.random().toString(36).slice(2, 9)}`;
     init() {
       this.updateLayout();
 
-      if (typeof ResizeObserver !== 'undefined') {
-        this.resizeObserver = new ResizeObserver(() => {
-          this.updateLayout();
-        });
-        this.resizeObserver.observe(this.element);
-        this.resizeObserver.observe(document.body);
-      } else {
-        // fallback for older browsers
-        const { signal } = this.abortController;
-        let resizeTimeout;
-        const handleResize = () => {
-          clearTimeout(resizeTimeout);
-          resizeTimeout = setTimeout(() => this.updateLayout(), 200);
-        };
-        window.addEventListener('resize', handleResize, { signal });
-      }
+      this.resizeObserver = new ResizeObserver(() => {
+        this.updateLayout();
+      });
+      this.resizeObserver.observe(this.element);
+      this.resizeObserver.observe(document.body);
     }
 
     destroy() {
-      this.abortController.abort();
-
       if (this.resizeObserver) {
         this.resizeObserver.disconnect();
         this.resizeObserver = null;
