@@ -1,5 +1,3 @@
-import { SITE_URL } from '@/config/site';
-
 export function createImageObject(
   image: { path: string; width: number; height: number },
   baseUrl: string | URL,
@@ -10,8 +8,4 @@ export function createImageObject(
     width: image.width,
     height: image.height,
   };
-}
-
-export function getCanonicalUrl(pathname: string, site?: URL) {
-  return new URL(pathname, site || SITE_URL).toString();
 }

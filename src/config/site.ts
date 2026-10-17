@@ -10,7 +10,6 @@ export const SITE_CONFIG = {
     en: 'Physicist + Developer + Designer',
     es: 'Físico + Desarrollador + Diseñador',
   },
-  url: SITE_URL,
 
   author: {
     name: 'David Duran',
