@@ -3,12 +3,6 @@ import { getRelativeLocaleUrl } from 'astro:i18n';
 import { DEFAULT_LANGUAGE } from '@/config/site';
 import { getAlternates } from '@/lib/alternates';
 
-interface Props {
-  class?: string;
-}
-
-const { class: extra = '' } = Astro.props as Props;
-
 const currentLang = Astro.currentLocale || DEFAULT_LANGUAGE;
 
 const { path, languages } = await getAlternates(Astro.url.pathname);
@@ -21,7 +15,7 @@ const languageOptions = languages.map((code) => ({
 ---
 
 {languageOptions.length > 1 && (
-<nav class={`language-switcher ${extra}`.trim()} aria-label='Language switcher'>
+<nav aria-label='Language switcher'>
   <ul
     class='m-0 flex list-none items-center gap-2 rounded-md bg-white/90 p-0 px-1 py-1 text-xs font-medium shadow-sm backdrop-blur-sm sm:bg-transparent sm:px-0 sm:py-0 sm:shadow-none dark:bg-gray-900/90 sm:dark:bg-transparent'
   >

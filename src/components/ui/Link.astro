@@ -1,27 +1,14 @@
 ---
 interface Props {
   href: string;
-  external?: boolean;
   class?: string;
-  target?: string;
-  rel?: string;
 }
 
-const {
-  href,
-  external = href.startsWith('http') || href.startsWith('//'),
-  class: className,
-  target,
-  rel,
-  ...rest
-} = Astro.props;
+const { href, class: className, ...rest } = Astro.props;
 
-const isExternal = external || target === '_blank';
+const isExternal = href.startsWith('http') || href.startsWith('//');
 const linkProps = isExternal
-  ? {
-      target: target || '_blank',
-      rel: rel || 'noopener noreferrer',
-    }
+  ? { target: '_blank', rel: 'noopener noreferrer' }
   : {};
 ---
 
@@ -30,7 +17,7 @@ const linkProps = isExternal
     isExternal && (
       <span class='text-text-secondary ml-0.5 inline-block align-text-bottom'>
         <svg
-          class='anchor-icon m-0 p-0'
+          class='m-0 p-0'
           width='15'
           height='15'
           viewBox='0 0 16 16'

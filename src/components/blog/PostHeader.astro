@@ -1,51 +1,28 @@
 ---
 interface Props {
   title: string;
-  pubDate?: string | Date;
-  class?: string;
-  prefix?: string;
-  monthFirst?: boolean;
+  pubDate?: Date;
   showLastModified?: boolean;
 }
 
-const {
-  title,
-  pubDate,
-  class: extra,
-  prefix,
-  monthFirst,
-  showLastModified = false,
-} = Astro.props as Props;
+const { title, pubDate, showLastModified = false } = Astro.props;
 
-// When no publication date is available, "Updated" uses the build date.
-const dateToDisplay = pubDate
-  ? new Date(pubDate)
-  : showLastModified
-    ? new Date()
-    : undefined;
+// Without a publication date, "Updated" shows the build date.
+const dateToDisplay = pubDate ?? (showLastModified ? new Date() : undefined);
 
-function formatDate(d: Date, monthFirst?: boolean): string {
-  try {
-    const day = d.getDate();
-    const month = d.toLocaleString('en-US', { month: 'long' });
-    const year = d.getFullYear();
-    return monthFirst ? `${month} ${day}, ${year}` : `${day} ${month}, ${year}`;
-  } catch (error) {
-    console.error('Error formatting date:', error);
-    return d.toISOString().split('T')[0];
-  }
+function formatDate(d: Date): string {
+  const month = d.toLocaleString('en-US', { month: 'long' });
+  return `${d.getDate()} ${month}, ${d.getFullYear()}`;
 }
-
-const displayPrefix = prefix || (showLastModified ? 'Updated' : undefined);
 ---
 
 {
   dateToDisplay && (
-    <header class={`mb-1 flex flex-col gap-1 ${extra ?? ''}`.trim()}>
+    <header class='mb-1 flex flex-col gap-1'>
       <h1 class='font-medium'>{title}</h1>
       <time datetime={dateToDisplay.toISOString()}>
-        {displayPrefix ? `${displayPrefix} ` : ''}
-        {formatDate(dateToDisplay, monthFirst)}
+        {showLastModified ? 'Updated ' : ''}
+        {formatDate(dateToDisplay)}
       </time>
     </header>
   )
