@@ -24,8 +24,6 @@ The default slot holds the annotated text. The `comment` slot holds the note.
 
 | Prop                | Type      | Default          | Notes                          |
 | ------------------- | --------- | ---------------- | ------------------------------ |
-| `animationDuration` | `number`  | `650`            | Ignored.                       |
-| `commentDelay`      | `number`  | `120`            | Ignored.                       |
 | `strokeWidth`       | `number`  | `2`              |                                |
 | `bracketColor`      | `string`  | `'currentColor'` |                                |
 | `commentMaxWidth`   | `number`  | `260`            |                                |
@@ -61,9 +59,8 @@ For a video or a remote file, pass a path under `public/` or a URL:
 ```
 
 `type` is inferred when omitted. An imported image is always `'image'`. For a
-string `src`, the component reads the file extension, or the `origFormat` query
-parameter when the URL carries `?origWidth=` and `&origFormat=`. It falls back
-to `'iframe'` when the extension is neither an image nor a video.
+string `src`, the component reads the file extension, ignoring any query string.
+It falls back to `'iframe'` when the extension is neither an image nor a video.
 
 | Prop          | Type                                                                                      | Default                                                                           |
 | ------------- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
@@ -117,7 +114,6 @@ import Mark from "@/components/mdx/Mark.astro";
 This is regular text with <Mark>highlighted content</Mark>.
 ```
 
-| Prop    | Type               | Default                  |
-| ------- | ------------------ | ------------------------ |
-| `color` | `string`           | `'var(--color-mark-bg)'` |
-| `as`    | `'mark' \| 'span'` | `'mark'`                 |
+| Prop    | Type     | Default                  |
+| ------- | -------- | ------------------------ |
+| `color` | `string` | `'var(--color-mark-bg)'` |
