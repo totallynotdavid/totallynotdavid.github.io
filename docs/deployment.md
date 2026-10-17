@@ -3,35 +3,22 @@
 GitHub Actions builds and publishes the site to GitHub Pages. The workflows are
 in [`.github/workflows`](../.github/workflows).
 
-## Pull requests
+## Checks
 
-[`pr-build.yml`](../.github/workflows/pr-build.yml) runs on every pull request
-to `master`, and on demand. It runs these commands, which you can run locally:
+[`ci.yml`](../.github/workflows/ci.yml) runs on every pull request, every push
+to `master`, and on demand. It installs the tools pinned in
+[`mise.toml`](../mise.toml) and runs these commands, which you can run locally:
 
 ```sh
-bun install --frozen-lockfile
-bun run format:check
-bun astro check
-bun run build
+mise run install
+mise run check
 ```
 
-It then checks that `dist/` exists and that the run left no tracked file
-modified.
+`check` runs lint, typecheck and build, and writes no tracked file.
 
 ## Publishing
 
-[`deploy.yml`](../.github/workflows/deploy.yml) runs on a push to `master`, and
-on demand. A push starts it only when it changes one of:
-
-- `src/`
-- `public/`
-- `package.json`
-- `astro.config.ts`
-- `tailwind.config.ts`
-- `tsconfig.json`
-
-The `build` job uses the `withastro/action` action. The `deploy` job publishes
-its output with `actions/deploy-pages` to the `github-pages` environment.
-
-To publish after a change to any other file, run the workflow from the Actions
-tab.
+[`deploy.yml`](../.github/workflows/deploy.yml) runs on every push to `master`,
+and on demand. The `build` job runs `mise run install` and `mise run build`,
+then uploads `dist/` with `actions/upload-pages-artifact`. The `deploy` job
+publishes it with `actions/deploy-pages` to the `github-pages` environment.

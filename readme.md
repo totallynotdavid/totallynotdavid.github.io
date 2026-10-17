@@ -9,31 +9,32 @@ and page text are in the code.
 
 ## Run it
 
-You need [Bun](https://bun.sh/) 1.4.2. `mise install` installs the versions
-pinned in [`mise.toml`](mise.toml).
+Install [mise](https://mise.jdx.dev/), then:
 
 ```sh
-bun install
-bun dev
+mise install
+mise run install
+mise run dev
 ```
+
+`mise install` installs the Bun and Node versions pinned in
+[`mise.toml`](mise.toml).
 
 Open <http://localhost:4321>. It redirects to `/en/`; the Spanish site is at
 `/es/`.
 
-`bun dev` passes `--host`, so the server also listens on your network addresses.
-`bun start` listens on localhost only.
-
 ## Commands
 
-| Command                | What it does                                                 |
-| ---------------------- | ------------------------------------------------------------ |
-| `bun dev`              | Dev server on port 4321, reachable from the network.         |
-| `bun start`            | Dev server on port 4321, localhost only.                     |
-| `bun run build`        | Builds the static site into `dist/`.                         |
-| `bun run preview`      | Serves `dist/` after a build.                                |
-| `bun run astro check`  | Type-checks `.astro` and `.ts` files.                        |
-| `bun run format`       | Formats code with Biome and Markdown and YAML with Prettier. |
-| `bun run format:check` | Checks the same formatting without writing.                  |
+| Command              | What it does                                                         |
+| -------------------- | -------------------------------------------------------------------- |
+| `mise run dev`       | Dev server on port 4321, localhost only.                             |
+| `mise run dev:host`  | Dev server on port 4321, reachable from the network.                 |
+| `mise run build`     | Builds the static site into `dist/`.                                 |
+| `mise run preview`   | Serves `dist/` after a build.                                        |
+| `mise run typecheck` | Type-checks `.astro` and `.ts` files.                                |
+| `mise run lint`      | Checks code with Biome and Markdown and YAML with oxfmt.             |
+| `mise run fix`       | Applies Biome's safe fixes and formats Markdown and YAML.            |
+| `mise run check`     | Runs lint, typecheck and build. CI runs it on PRs and master pushes. |
 
 ## Features
 
