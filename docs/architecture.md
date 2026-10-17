@@ -11,18 +11,18 @@ Astro's file-based router.
   It sets a `noindex` robots tag and a canonical link, and redirects with a
   script and, for clients that ignore scripts, a meta refresh.
 - [`src/pages/[lang]/index.astro`](../src/pages/%5Blang%5D/index.astro) renders
-  the home page for each supported language: the matching `home.mdx` or
-  `home.es.mdx` from `src/content`, followed by the post list.
+  the home page for each supported language: the `src/content/home/<lang>.mdx`
+  entry of the `home` collection, followed by the post list. The build fails
+  when a supported language has no home entry.
 - [`src/pages/[lang]/[slug].astro`](../src/pages/%5Blang%5D/%5Bslug%5D.astro)
-  renders one page per entry in the `posts` collection.
+  renders one page per post that [`getPosts`](../src/lib/posts.ts) returns.
 
 ## `src/layouts`
 
 - [`Layout.astro`](../src/layouts/Layout.astro) is the HTML shell: fonts, meta
   tags, hreflang links, structured data, analytics and the language picker.
 - [`PostLayout.astro`](../src/layouts/PostLayout.astro) wraps `Layout` for post
-  pages. It adds the post header and the table of contents, and imports the
-  footnote styles when a heading mentions "footnote".
+  pages. It adds the post header, the table of contents and the footnote styles.
 
 ## `src/components`
 
@@ -41,17 +41,24 @@ Astro's file-based router.
 
 ## `src/i18n`
 
-- [`config.ts`](../src/i18n/config.ts) lists the supported languages, their
-  locale metadata and the UI translation strings.
+- [`config.ts`](../src/i18n/config.ts) maps each supported language to its
+  locale and holds the UI translation strings.
 - [`utils.ts`](../src/i18n/utils.ts) exposes `useTranslations`, which looks up a
-  UI string for a language and falls back to the default language, and
-  `getOgLocale`.
+  UI string for a language and uses the default language for an unknown one, and
+  `getLocale` and `getOgLocale`.
+
+## `src/lib`
+
+- [`posts.ts`](../src/lib/posts.ts) loads the `posts` collection. Production
+  builds leave out posts with `draft: true`.
+- [`alternates.ts`](../src/lib/alternates.ts) lists the languages a page exists
+  in. The language picker and the hreflang links both use it.
 
 ## `src/config/site.ts`
 
 [`site.ts`](../src/config/site.ts) holds the site-wide constants used by the
 layouts and the SEO components: title, per-language description, site URL,
-author details, the default Open Graph image and the analytics website ID.
+supported languages, author details and the analytics website ID.
 
 ## `src/content.config.ts`
 
@@ -91,10 +98,11 @@ plugin, always-inlined stylesheets, and viewport prefetching.
    compiles each post's MDX and runs `footnote-fixes` over the resulting HTML
    tree.
 2. `getStaticPaths` in
-   [`[slug].astro`](../src/pages/%5Blang%5D/%5Bslug%5D.astro) calls
-   `getCollection('posts')`, which the glob loader in `content.config.ts` backs.
-   It splits each entry id, for example `en/caefisica`, into `lang` and `slug`,
-   and generates one static route per post.
+   [`[slug].astro`](../src/pages/%5Blang%5D/%5Bslug%5D.astro) calls `getPosts`,
+   which reads the `posts` collection that the glob loader in
+   `content.config.ts` backs. It splits each entry id, for example
+   `en/caefisica`, into `lang` and `slug`, and generates one static route per
+   post.
 3. For each route, the page calls `render(post)` to get the compiled `Content`
    component and its `headings`, and passes them to `PostLayout`.
 4. `PostLayout` renders `PostHeader` and `TableOfContents` from the headings,
