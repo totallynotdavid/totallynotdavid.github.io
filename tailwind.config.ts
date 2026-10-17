@@ -1,9 +1,6 @@
 import typography from '@tailwindcss/typography';
 
-/** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
-  darkMode: 'media',
   theme: {
     extend: {
       colors: {
@@ -45,13 +42,7 @@ export default {
       maxWidth: {
         520: '32.5rem',
       },
-      aspectRatio: {
-        '16/10': '16 / 10',
-        '4/3': '4 / 3',
-        '21/9': '21 / 9',
-        '3/2': '3 / 2',
-      },
-      typography: () => ({
+      typography: {
         DEFAULT: {
           css: {
             '--tw-prose-body': 'var(--color-text-secondary)',
@@ -124,7 +115,7 @@ export default {
             },
           },
         },
-      }),
+      },
     },
   },
   plugins: [typography],

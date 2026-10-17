@@ -6,7 +6,7 @@
     opacity 200ms ease-out;
 }
 
-/* important to contain the animation */
+/* Position the flash highlight against its heading. */
 article h1,
 article h2,
 article h3,

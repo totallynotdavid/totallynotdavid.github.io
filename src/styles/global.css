@@ -3,14 +3,6 @@
 @config "../../tailwind.config.ts";
 
 @layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
-  }
-
   ::selection {
     background-color: var(--color-selection-bg);
     color: var(--color-text-primary);
@@ -19,7 +11,6 @@
 
 @layer base {
   :root {
-    /* Light Theme */
     --color-background: hsl(60, 20%, 99%);
     --color-text-primary: hsl(0, 0%, 7%);
     --color-text-secondary: hsl(0, 0%, 42%);
@@ -29,24 +20,16 @@
     --color-selection-bg: hsl(0, 0%, 93%);
     --color-mark-bg: hsl(200, 100%, 50%);
 
-    /* Typography scale */
     --font-size-base: 0.875rem;
-    --font-size-small: 0.8125rem;
-    --font-size-tiny: 0.75rem;
     --font-weight-normal: 460;
-    --font-weight-medium: 500;
     --font-weight-semibold: 560;
-    --font-weight-bold: 600;
-    --letter-spacing-tight: -0.016em;
     --letter-spacing-normal: -0.011em;
-    --letter-spacing-loose: -0.01em;
 
     color-scheme: light dark;
   }
 
   @media (prefers-color-scheme: dark) {
     :root {
-      /* Dark Theme */
       --color-background: hsl(0, 0%, 4%);
       --color-text-primary: hsl(0, 0%, 100%);
       --color-text-secondary: hsl(0, 0%, 64%);
@@ -123,38 +106,12 @@
   }
 }
 
-@utility post-year {
-  font-size: var(--font-size-small);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-secondary);
-  letter-spacing: var(--letter-spacing-loose);
-}
-
-@utility post-title {
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-primary);
-  letter-spacing: var(--letter-spacing-tight);
-}
-
-@utility post-date {
-  font-family:
-    "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Courier New", monospace;
-  font-size: var(--font-size-small);
-  font-weight: 400;
-  color: var(--color-text-secondary);
-  letter-spacing: var(--letter-spacing-loose);
-}
-
 article > p + div:has(h2) {
   padding-top: 2.25rem;
   font-weight: var(--font-weight-semibold);
 }
 
-/*
-This is added to avoid padding on the first text after a figure element
-Cause: MediaEmbed
-*/
+/* MediaEmbed renders a figure. The following paragraph needs no top padding. */
 article > figure + p,
 article > figure + script + p {
   padding-top: 0;
