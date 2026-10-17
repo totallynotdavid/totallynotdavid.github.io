@@ -10,7 +10,6 @@ export async function getPosts(): Promise<Post[]> {
   );
 }
 
-/** Splits a post id such as `en/caefisica` into its language and slug. */
 export function parsePostId(id: string) {
   const [lang, ...slugParts] = id.split('/');
   return { lang, slug: slugParts.join('/') };

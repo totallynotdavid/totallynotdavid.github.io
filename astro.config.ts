@@ -9,7 +9,6 @@ import {
   SUPPORTED_LANGUAGES,
 } from './src/config/site.ts';
 
-// https://docs.astro.build/en/reference/configuration-reference/
 export default defineConfig({
   integrations: [mdx()],
   site: SITE_URL,
