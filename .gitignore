@@ -2,6 +2,9 @@
 .cache
 dist
 node_modules
+.env
+.env.*
+!.env.example
 public/__astro_font_generated__
 
 # filetypes
