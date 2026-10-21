@@ -10,15 +10,18 @@ to `master`, and on demand. It installs the tools pinned in
 [`mise.toml`](../mise.toml) and runs these commands, which you can run locally:
 
 ```sh
-mise run install
-mise run check
+bun install --frozen-lockfile
+bun run check
 ```
 
-`check` runs lint, typecheck and build, and writes no tracked file.
+`check` runs Biome, the type check and the Markdown and YAML format check, and
+writes no tracked file. The `build` script is not part of it; the deploy
+workflow runs it.
 
 ## Publishing
 
 [`deploy.yml`](../.github/workflows/deploy.yml) runs on every push to `master`,
-and on demand. The `build` job runs `mise run install` and `mise run build`,
-then uploads `dist/` with `actions/upload-pages-artifact`. The `deploy` job
-publishes it with `actions/deploy-pages` to the `github-pages` environment.
+and on demand. The `build` job runs `bun install --frozen-lockfile` and
+`bun run build`, then uploads `dist/` with `actions/upload-pages-artifact`. The
+`deploy` job publishes it with `actions/deploy-pages` to the `github-pages`
+environment.

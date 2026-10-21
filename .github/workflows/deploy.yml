@@ -23,8 +23,8 @@ jobs:
         with:
           persist-credentials: false
       - uses: jdx/mise-action@fc42bcc7ddbf51124c30f95a877a0c5168a3bfde # v5.2.1
-      - run: mise run install
-      - run: mise run build
+      - run: bun install --frozen-lockfile
+      - run: bun run build
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: dist

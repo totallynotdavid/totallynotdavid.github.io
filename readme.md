@@ -13,8 +13,8 @@ Install [mise](https://mise.jdx.dev/), then:
 
 ```sh
 mise install
-mise run install
-mise run dev
+bun install
+bun run dev
 ```
 
 `mise install` installs the Bun and Node versions pinned in
@@ -25,16 +25,17 @@ Open <http://localhost:4321>. It redirects to `/en/`; the Spanish site is at
 
 ## Commands
 
-| Command              | What it does                                                         |
-| -------------------- | -------------------------------------------------------------------- |
-| `mise run dev`       | Dev server on port 4321, localhost only.                             |
-| `mise run dev:host`  | Dev server on port 4321, reachable from the network.                 |
-| `mise run build`     | Builds the static site into `dist/`.                                 |
-| `mise run preview`   | Serves `dist/` after a build.                                        |
-| `mise run typecheck` | Type-checks `.astro` and `.ts` files.                                |
-| `mise run lint`      | Checks code with Biome and Markdown and YAML with oxfmt.             |
-| `mise run fix`       | Applies Biome's safe fixes and formats Markdown and YAML.            |
-| `mise run check`     | Runs lint, typecheck and build. CI runs it on PRs and master pushes. |
+| Command             | What it does                                                             |
+| ------------------- | ------------------------------------------------------------------------ |
+| `bun run dev`       | Dev server on port 4321, localhost only.                                 |
+| `bun run dev:host`  | Dev server on port 4321, reachable from the network.                     |
+| `bun run build`     | Builds the static site into `dist/`.                                     |
+| `bun run preview`   | Serves `dist/` after a build.                                            |
+| `bun run typecheck` | Type-checks `.astro` and `.ts` files.                                    |
+| `bun run lint`      | Checks code and formatting with Biome.                                   |
+| `bun run lint:docs` | Checks Markdown and YAML formatting with oxfmt.                          |
+| `bun run fix`       | Applies Biome's safe fixes and formats Markdown and YAML.                |
+| `bun run check`     | Runs lint, typecheck and lint:docs. CI runs it on PRs and master pushes. |
 
 ## Features
 
