@@ -11,7 +11,7 @@
     "lint": "biome ci .",
     "lint:docs": "oxfmt --check '**/*.{md,yml,yaml}'",
     "fix": "biome check --write . && oxfmt '**/*.{md,yml,yaml}'",
-    "check": "bun run lint && bun run typecheck && bun run lint:docs"
+    "check": "bun run lint && bun run typecheck && bun run lint:docs && bun run build"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.4.4",

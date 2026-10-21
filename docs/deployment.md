@@ -14,9 +14,8 @@ bun install --frozen-lockfile
 bun run check
 ```
 
-`check` runs Biome, the type check and the Markdown and YAML format check, and
-writes no tracked file. The `build` script is not part of it; the deploy
-workflow runs it.
+`check` runs Biome, the type check, the Markdown and YAML format check and the
+site build. It writes no tracked file.
 
 ## Publishing
 

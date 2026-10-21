@@ -25,17 +25,17 @@ Open <http://localhost:4321>. It redirects to `/en/`; the Spanish site is at
 
 ## Commands
 
-| Command             | What it does                                                             |
-| ------------------- | ------------------------------------------------------------------------ |
-| `bun run dev`       | Dev server on port 4321, localhost only.                                 |
-| `bun run dev:host`  | Dev server on port 4321, reachable from the network.                     |
-| `bun run build`     | Builds the static site into `dist/`.                                     |
-| `bun run preview`   | Serves `dist/` after a build.                                            |
-| `bun run typecheck` | Type-checks `.astro` and `.ts` files.                                    |
-| `bun run lint`      | Checks code and formatting with Biome.                                   |
-| `bun run lint:docs` | Checks Markdown and YAML formatting with oxfmt.                          |
-| `bun run fix`       | Applies Biome's safe fixes and formats Markdown and YAML.                |
-| `bun run check`     | Runs lint, typecheck and lint:docs. CI runs it on PRs and master pushes. |
+| Command             | What it does                                                                    |
+| ------------------- | ------------------------------------------------------------------------------- |
+| `bun run dev`       | Dev server on port 4321, localhost only.                                        |
+| `bun run dev:host`  | Dev server on port 4321, reachable from the network.                            |
+| `bun run build`     | Builds the static site into `dist/`.                                            |
+| `bun run preview`   | Serves `dist/` after a build.                                                   |
+| `bun run typecheck` | Type-checks `.astro` and `.ts` files.                                           |
+| `bun run lint`      | Checks code and formatting with Biome.                                          |
+| `bun run lint:docs` | Checks Markdown and YAML formatting with oxfmt.                                 |
+| `bun run fix`       | Applies Biome's safe fixes and formats Markdown and YAML.                       |
+| `bun run check`     | Runs lint, typecheck, lint:docs and build. CI runs it on PRs and master pushes. |
 
 ## Features
 
